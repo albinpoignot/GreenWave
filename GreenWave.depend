@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1299595778 source:/home/albin/Developpement/GreenWave/main.c
+1300122421 source:/home/albin/Developpement/GreenWave/main.c
 	<stdio.h>
 	<stdlib.h>
 	<SDL/SDL.h>
