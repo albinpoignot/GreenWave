@@ -35,6 +35,7 @@
 			<Add library="SDL" />
 			<Add library="SDLmain" />
 		</Linker>
+		<Unit filename="Voiture.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>

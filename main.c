@@ -12,16 +12,17 @@ int main(int argc, char *argv[])
     }
 
     // ---------- VARIABLES LOCALES ------------
-    SDL_Surface *ecran = NULL, *rectangle = NULL, *zozor = NULL;
-    SDL_Rect position;
+    SDL_Surface *ecran = NULL, *routesH = NULL, *routesV = NULL;
+    Uint32 violet, blanc;
 
     SDL_Event event;
-    SDL_Event event2;
+    SDL_Rect position;
     int continuer = 1;
-    int tpsActuel = 0, tpsPrecedent = 0;
+    int i;
     // ------------------------------------------
 
 
+    // Répétition des touches
     SDL_EnableKeyRepeat(10, 10);
 
 
@@ -41,20 +42,35 @@ int main(int argc, char *argv[])
 
 
     // Paramêtrage couleur de fond
-    Uint32 violet = SDL_MapRGB(ecran->format, 138, 0, 143); // Couleur violette
+    violet = SDL_MapRGB(ecran->format, 138, 0, 143); // Couleur violette
     SDL_FillRect(ecran, NULL, violet); // Définition de la couleur de fond de l'écran
 
+    // Création et initialisation du rectangle des routes verticales
+    blanc = SDL_MapRGB(ecran->format, 255, 255, 255);
+    routesH = SDL_CreateRGBSurface(SDL_HWSURFACE, 30, 400, 32, 0, 0, 0, 0);
+    SDL_FillRect(routesH, NULL, blanc);
+    position.x = 200;
+    position.y = 20;
+    for(i = 0; i <= 2; i++)
+    {
+        SDL_BlitSurface(routesH, NULL, ecran, &position);
+        position.x += 100;
+    }
 
 
+    // Création et initialisation du rectangle des routes horizontales
+    routesV = SDL_CreateRGBSurface(SDL_HWSURFACE, 400, 30, 32, 0, 0, 0, 0);
+    SDL_FillRect(routesV, NULL, blanc);
+    position.x = 120;
+    position.y = 100;
+    for(i = 0; i <= 2; i++)
+    {
+        SDL_BlitSurface(routesV, NULL, ecran, &position);
+        position.y += 100;
+    }
 
+    SDL_Flip(ecran); /* On met à jour l'affichage */
 
-    zozor = SDL_LoadBMP("zozor.bmp");
-    SDL_SetColorKey(zozor, SDL_SRCCOLORKEY, SDL_MapRGB(zozor->format, 0, 0, 255));
-    SDL_Rect positionZozor;
-    /* On centre zozor à l'écran */
-    positionZozor.x = ecran->w / 2 - zozor->w / 2;
-    positionZozor.y = ecran->h / 2 - zozor->h / 2;
-    SDL_BlitSurface(zozor, NULL, ecran, &positionZozor);
 
 
     // Evite la fenêtre de se fermer toute seule
@@ -71,18 +87,6 @@ int main(int argc, char *argv[])
             case SDL_KEYDOWN: /* Si appui d'une touche */
                 switch(event.key.keysym.sym)
                 {
-                    case SDLK_UP: // Flèche haut
-                        positionZozor.y--;
-                        break;
-                    case SDLK_DOWN: // Flèche bas
-                        positionZozor.y++;
-                        break;
-                    case SDLK_RIGHT: // Flèche droite
-                        positionZozor.x++;
-                        break;
-                    case SDLK_LEFT: // Flèche gauche
-                        positionZozor.x--;
-                        break;
                     case SDLK_ESCAPE:
                         continuer = 0;
                         break;
@@ -91,43 +95,15 @@ int main(int argc, char *argv[])
                         break;
                 }
                 break;
-            case SDL_MOUSEBUTTONUP:
-                if (event.button.button == SDL_BUTTON_LEFT) /* On arrête le programme si on a fait un clic droit */
-                {
-                    positionZozor.x = event.button.x; /* On change les coordonnées de Zozor */
-                    positionZozor.y = event.button.y;
-                }
-                break;
 
         }
-
-        tpsActuel = SDL_GetTicks();
-
-        if(tpsActuel - tpsPrecedent > 15)
-        {
-            if(positionZozor.x < ecran->w)
-            {
-                positionZozor.x++;
-            }
-            else
-            {
-                positionZozor.x = 0;
-            }
-            tpsPrecedent = tpsActuel;
-        }
-
-        SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 255, 255, 255)); /* On efface l'écran */
-        SDL_BlitSurface(zozor, NULL, ecran, &positionZozor); /* On place zozor à sa nouvelle position */
-        SDL_Flip(ecran); /* On met à jour l'affichage */
 
     }
 
 
-
-
     // Free des surfaces
-    SDL_FreeSurface(rectangle);
-    SDL_FreeSurface(zozor);
+    SDL_FreeSurface(routesH);
+    SDL_FreeSurface(routesV);
     SDL_Quit();
 
     return EXIT_SUCCESS;
