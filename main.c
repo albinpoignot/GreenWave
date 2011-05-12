@@ -26,8 +26,8 @@ int main(int argc, char *argv[])
     SDL_EnableKeyRepeat(10, 10);
 
 
-    // Ouverture d'une fenêtre : 640*480, couleurs 32b, on utilise la mém. vidéo
-    ecran = SDL_SetVideoMode(640, 480, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
+    // Ouverture d'une fenêtre : 800*600, couleurs 32b, on utilise la mém. vidéo
+    ecran = SDL_SetVideoMode(800, 600, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
 
     // En cas d'erreur à l'ouverture
     if (ecran == NULL)

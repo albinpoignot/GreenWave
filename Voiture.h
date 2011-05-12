@@ -15,15 +15,23 @@ typedef struct {
     int posX;
     int posY;
     int vitesseInstantanee;
-    int distanceSecuMvt; // A supprimer ?
+    int distanceSecuMouvement : Entier  // a supprimer ?
+    int * fileActuelle[]; // Pointeur sur un tableau externe
+    int * traceChoisi[];
 } Voiture;
 
+// Initialisation et destruction
 void Voiture_init(Voiture *voiture);
+void Voiture_destroy(Voiture *voiture);
 
-void Voiture_deplacer(Voiture *voiture, int dest);
+// Déplacement
+void Voiture_deplacer(Voiture *voiture);
+void Voiture_deplacementVertical(Voiture *voiture, Voiture *voitureDevant);
+void Voiture_deplacementHorizontal(Voiture *voiture, Voiture *voitureDevant);
+void Voiture_bouger(Voiture *voiture);
 
-void Voiture_deplacementVertical(Voiture *voiture, int coor[]);
-
-void Voiture_deplacementHorizontal(Voiture *voiture, int coor[]);
+// Fonction intermédiaire
+int Voiture_definirIndiceCarrefourDest(int depart, int arrivee);
+int Voiture_trouverIndiceVoitureDansFile(Voiture *voiture);
 
 #endif // VOITURE_H_INCLUDED
