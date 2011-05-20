@@ -4,6 +4,9 @@
 
 int main(int argc, char *argv[])
 {
+    /*****************************************
+     * Phase 1 : Initialisation du programme *
+     *****************************************/
     // Démarrage de la SDL et handle des erreurs
     if (SDL_Init(SDL_INIT_VIDEO) == -1)
     {
@@ -19,6 +22,11 @@ int main(int argc, char *argv[])
     SDL_Rect position;
     int continuer = 1;
     int i;
+
+    int longueurRoutes = 500;
+    int largeurRoutes = 40;
+    int espaceRoutes = 95; // espaceRoutes = (longueurRoutes - 3*largeurRoutes) / 4
+    int padding = 40;
     // ------------------------------------------
 
 
@@ -36,43 +44,57 @@ int main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
 
-
     // Titre de la fenêtre
-    SDL_WM_SetCaption("Hello World ! window", NULL);
+    SDL_WM_SetCaption("Green Wave", NULL);
 
 
+    /**************************************************
+     * Phase 2 : Initialisation du dessin du quartier *
+     **************************************************/
     // Paramêtrage couleur de fond
     violet = SDL_MapRGB(ecran->format, 138, 0, 143); // Couleur violette
     SDL_FillRect(ecran, NULL, violet); // Définition de la couleur de fond de l'écran
 
+
+    // ------- Routes horizontales -------
+
     // Création et initialisation du rectangle des routes verticales
     blanc = SDL_MapRGB(ecran->format, 255, 255, 255);
-    routesH = SDL_CreateRGBSurface(SDL_HWSURFACE, 30, 400, 32, 0, 0, 0, 0);
-    SDL_FillRect(routesH, NULL, blanc);
-    position.x = 200;
-    position.y = 20;
-    for(i = 0; i <= 2; i++)
-    {
-        SDL_BlitSurface(routesH, NULL, ecran, &position);
-        position.x += 100;
-    }
-
-
-    // Création et initialisation du rectangle des routes horizontales
-    routesV = SDL_CreateRGBSurface(SDL_HWSURFACE, 400, 30, 32, 0, 0, 0, 0);
+    routesV = SDL_CreateRGBSurface(SDL_HWSURFACE, largeurRoutes, longueurRoutes, 32, 0, 0, 0, 0);
     SDL_FillRect(routesV, NULL, blanc);
-    position.x = 120;
-    position.y = 100;
+    // La première route sera à cette position
+    position.x = espaceRoutes + padding;
+    position.y = padding;
+
     for(i = 0; i <= 2; i++)
     {
         SDL_BlitSurface(routesV, NULL, ecran, &position);
-        position.y += 100;
+        position.x += espaceRoutes + largeurRoutes;
     }
 
-    SDL_Flip(ecran); /* On met à jour l'affichage */
+    // ------- Routes verticales -------
+
+    // Création et initialisation du rectangle des routes horizontales
+    routesH = SDL_CreateRGBSurface(SDL_HWSURFACE, longueurRoutes, largeurRoutes, 32, 0, 0, 0, 0);
+    SDL_FillRect(routesH, NULL, blanc);
+    // La première route verticale sera à cette position
+    position.x = padding;
+    position.y = espaceRoutes + padding;
+
+    for(i = 0; i <= 2; i++)
+    {
+        SDL_BlitSurface(routesH, NULL, ecran, &position);
+        position.y += espaceRoutes + largeurRoutes;
+    }
 
 
+    // Mise à jour de l'affichage
+    SDL_Flip(ecran);
 
+
+    /************************************
+     * Phase 3 : Lancement du programme *
+     ************************************/
     // Evite la fenêtre de se fermer toute seule
     while(continuer)
     {
@@ -101,6 +123,9 @@ int main(int argc, char *argv[])
     }
 
 
+    /**************************************
+     * Phase 4 : Libération de la mémoire *
+     **************************************/
     // Free des surfaces
     SDL_FreeSurface(routesH);
     SDL_FreeSurface(routesV);

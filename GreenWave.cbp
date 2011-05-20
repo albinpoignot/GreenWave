@@ -35,7 +35,12 @@
 			<Add library="SDL" />
 			<Add library="SDLmain" />
 		</Linker>
+		<Unit filename="Carrefour.h" />
+		<Unit filename="Structures.h" />
 		<Unit filename="Voiture.h" />
+		<Unit filename="configurations.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>

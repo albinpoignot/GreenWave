@@ -15,9 +15,9 @@ typedef struct {
     int posX;
     int posY;
     int vitesseInstantanee;
-    int distanceSecuMouvement : Entier  // a supprimer ?
-    int * fileActuelle[]; // Pointeur sur un tableau externe
-    int * traceChoisi[];
+    int distanceSecuMouvement; // a supprimer ?
+    int * fileActuelle; // Pointeur sur un tableau externe
+    int * traceChoisi;
 } Voiture;
 
 // Initialisation et destruction

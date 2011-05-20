@@ -1,6 +1,17 @@
 # depslib dependency file v1.0
-1301490010 source:/home/albin/Developpement/GreenWave/main.c
+1305208568 source:/home/albin/Developpement/GreenWave/main.c
 	<stdio.h>
 	<stdlib.h>
 	<SDL/SDL.h>
+
+1305907262 source:/home/albin/Developpement/GreenWave/configurations.c
+	<stdio.h>
+	<stdlib.h>
+	"Structures.h"
+	"Voiture.h"
+
+1305725921 /home/albin/Developpement/GreenWave/Structures.h
+	"Voiture.h"
+
+1305725851 /home/albin/Developpement/GreenWave/Voiture.h
 
