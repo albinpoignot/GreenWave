@@ -4,6 +4,9 @@
 
 int main(int argc, char *argv[])
 {
+    /*****************************************
+     * Phase 1 : Initialisation du programme *
+     *****************************************/
     // Démarrage de la SDL et handle des erreurs
     if (SDL_Init(SDL_INIT_VIDEO) == -1)
     {
@@ -12,21 +15,22 @@ int main(int argc, char *argv[])
     }
 
     // ---------- VARIABLES LOCALES ------------
-    SDL_Surface *ecran = NULL, *rectangle = NULL, *zozor = NULL;
-    SDL_Rect position;
+    SDL_Surface *ecran = NULL, *routesH = NULL, *routesV = NULL;
+    Uint32 violet, blanc;
 
     SDL_Event event;
-    SDL_Event event2;
+    SDL_Rect position;
     int continuer = 1;
-    int tpsActuel = 0, tpsPrecedent = 0;
+    int i;
     // ------------------------------------------
 
 
+    // Répétition des touches
     SDL_EnableKeyRepeat(10, 10);
 
 
-    // Ouverture d'une fenêtre : 640*480, couleurs 32b, on utilise la mém. vidéo
-    ecran = SDL_SetVideoMode(640, 480, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
+    // Ouverture d'une fenêtre : 800*600, couleurs 32b, on utilise la mém. vidéo
+    ecran = SDL_SetVideoMode(800, 600, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
 
     // En cas d'erreur à l'ouverture
     if (ecran == NULL)
@@ -35,28 +39,57 @@ int main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
 
-
     // Titre de la fenêtre
-    SDL_WM_SetCaption("Hello World ! window", NULL);
+    SDL_WM_SetCaption("Green Wave", NULL);
 
 
+    /**************************************************
+     * Phase 2 : Initialisation du dessin du quartier *
+     **************************************************/
     // Paramêtrage couleur de fond
-    Uint32 violet = SDL_MapRGB(ecran->format, 138, 0, 143); // Couleur violette
+    violet = SDL_MapRGB(ecran->format, 138, 0, 143); // Couleur violette
     SDL_FillRect(ecran, NULL, violet); // Définition de la couleur de fond de l'écran
 
 
+    // ------- Routes horizontales -------
+
+    // Création et initialisation du rectangle des routes verticales
+    blanc = SDL_MapRGB(ecran->format, 255, 255, 255);
+    routesV = SDL_CreateRGBSurface(SDL_HWSURFACE, 40, 500, 32, 0, 0, 0, 0);
+    SDL_FillRect(routesV, NULL, blanc);
+    // La première route sera à cette position
+    position.x = 125;
+    position.y = 20;
+
+    for(i = 0; i <= 2; i++)
+    {
+        SDL_BlitSurface(routesV, NULL, ecran, &position);
+        position.x += 125;
+    }
+
+    // ------- Routes verticales -------
+
+    // Création et initialisation du rectangle des routes horizontales
+    routesH = SDL_CreateRGBSurface(SDL_HWSURFACE, 500, 40, 32, 0, 0, 0, 0);
+    SDL_FillRect(routesH, NULL, blanc);
+    // La première route verticale sera à cette position
+    position.x = 20;
+    position.y = 125;
+
+    for(i = 0; i <= 2; i++)
+    {
+        SDL_BlitSurface(routesH, NULL, ecran, &position);
+        position.y += 125;
+    }
 
 
-
-    zozor = SDL_LoadBMP("zozor.bmp");
-    SDL_SetColorKey(zozor, SDL_SRCCOLORKEY, SDL_MapRGB(zozor->format, 0, 0, 255));
-    SDL_Rect positionZozor;
-    /* On centre zozor à l'écran */
-    positionZozor.x = ecran->w / 2 - zozor->w / 2;
-    positionZozor.y = ecran->h / 2 - zozor->h / 2;
-    SDL_BlitSurface(zozor, NULL, ecran, &positionZozor);
+    // Mise à jour de l'affichage
+    SDL_Flip(ecran);
 
 
+    /************************************
+     * Phase 3 : Lancement du programme *
+     ************************************/
     // Evite la fenêtre de se fermer toute seule
     while(continuer)
     {
@@ -71,18 +104,6 @@ int main(int argc, char *argv[])
             case SDL_KEYDOWN: /* Si appui d'une touche */
                 switch(event.key.keysym.sym)
                 {
-                    case SDLK_UP: // Flèche haut
-                        positionZozor.y--;
-                        break;
-                    case SDLK_DOWN: // Flèche bas
-                        positionZozor.y++;
-                        break;
-                    case SDLK_RIGHT: // Flèche droite
-                        positionZozor.x++;
-                        break;
-                    case SDLK_LEFT: // Flèche gauche
-                        positionZozor.x--;
-                        break;
                     case SDLK_ESCAPE:
                         continuer = 0;
                         break;
@@ -91,43 +112,18 @@ int main(int argc, char *argv[])
                         break;
                 }
                 break;
-            case SDL_MOUSEBUTTONUP:
-                if (event.button.button == SDL_BUTTON_LEFT) /* On arrête le programme si on a fait un clic droit */
-                {
-                    positionZozor.x = event.button.x; /* On change les coordonnées de Zozor */
-                    positionZozor.y = event.button.y;
-                }
-                break;
 
         }
-
-        tpsActuel = SDL_GetTicks();
-
-        if(tpsActuel - tpsPrecedent > 15)
-        {
-            if(positionZozor.x < ecran->w)
-            {
-                positionZozor.x++;
-            }
-            else
-            {
-                positionZozor.x = 0;
-            }
-            tpsPrecedent = tpsActuel;
-        }
-
-        SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 255, 255, 255)); /* On efface l'écran */
-        SDL_BlitSurface(zozor, NULL, ecran, &positionZozor); /* On place zozor à sa nouvelle position */
-        SDL_Flip(ecran); /* On met à jour l'affichage */
 
     }
 
 
-
-
+    /**************************************
+     * Phase 4 : Libération de la mémoire *
+     **************************************/
     // Free des surfaces
-    SDL_FreeSurface(rectangle);
-    SDL_FreeSurface(zozor);
+    SDL_FreeSurface(routesH);
+    SDL_FreeSurface(routesV);
     SDL_Quit();
 
     return EXIT_SUCCESS;

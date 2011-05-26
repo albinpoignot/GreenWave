@@ -1,6 +1,42 @@
 # depslib dependency file v1.0
-1300122421 source:/home/albin/Developpement/GreenWave/main.c
+1305208568 source:/home/albin/Developpement/GreenWave/main.c
 	<stdio.h>
 	<stdlib.h>
 	<SDL/SDL.h>
+
+1305206938 source:/home/albin/Developpement/GreenWave/configurations.c
+
+1305208568 source:/media/USB DISK/Projet AlgoC 2010-2011/GreenWave/main.c
+	<stdio.h>
+	<stdlib.h>
+	<SDL/SDL.h>
+
+1306422288 source:/media/USB DISK/Projet AlgoC 2010-2011/GreenWave/configurations.c
+	<stdlib.h>
+	"Structures.h"
+	"Carrefour.h"
+	"Voiture.h"
+	"Feu.h"
+
+1306422288 /media/USB DISK/Projet AlgoC 2010-2011/GreenWave/Structures.h
+	"Voiture.h"
+	"Feu.h"
+	"Carrefour.h"
+
+1306422288 /media/USB DISK/Projet AlgoC 2010-2011/GreenWave/Voiture.h
+
+1306424691 /media/USB DISK/Projet AlgoC 2010-2011/GreenWave/Feu.h
+
+1306424691 source:/media/USB DISK/Projet AlgoC 2010-2011/GreenWave/Feu.c
+	<stdio.h>
+	<stdlib.h>
+	"Feu.h"
+
+1306424745 source:/media/USB DISK/Projet AlgoC 2010-2011/GreenWave/Carrefour.c
+	<stdio.h>
+	<stdlib.h>
+	"Carrefour.h"
+
+1306424330 /media/USB DISK/Projet AlgoC 2010-2011/GreenWave/Carrefour.h
+	"Feu.h"
 
