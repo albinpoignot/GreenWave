@@ -1,20 +1,10 @@
-#ifndef STRUCTURES_H_INCLUDED
+/*#ifndef STRUCTURES_H_INCLUDED
 #define STRUCTURES_H_INCLUDED
 
 #include "Voiture.h"
-//#include "Feu.h"
+#include "Feu.h"
+#include "Carrefour.h"
 
-/**
- * Carrefours et leur liste
- */
-typedef struct {
-    int id;
-    int posX;
-    int posY;
-    // Feu
-} Carrefour;
-
-Carrefour * ListeCarrefours[21];
 
 /**
  * File de véhicules (une par segment)
@@ -36,7 +26,7 @@ typedef struct {
     File * file;
 } Segment;
 
-Segment * ListeSegments[21][21];
+Segment * listeSegments[MAX_CARREFOUR][MAX_CARREFOUR];
 
 /**
  * Chemins et tracés
@@ -121,12 +111,10 @@ chemins[18][20] =
 
 chemins[19][20] =*/
 
-/**
- * En tetes de fonction
- */
-Carrefour * Carrefour_init(int id, int posX, int posY);
-Segment * Segment_init(Carrefour * carEnt, Carrefour * carSor);
+
+Segment * segment_init(Carrefour * carEnt, Carrefour * carSor);
 
 
 
 #endif // STRUCTURES_H_INCLUDED
+*/

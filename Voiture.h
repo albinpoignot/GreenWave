@@ -1,4 +1,4 @@
-#ifndef VOITURE_H_INCLUDED
+/*#ifndef VOITURE_H_INCLUDED
 #define VOITURE_H_INCLUDED
 
 typedef struct {
@@ -10,7 +10,7 @@ typedef struct {
     int acceleration;
     int distanceSecuArret;
 
-    // Variables non initialisées et modifiable
+    // Variables non initialisées et modifiables
     // indépendement par chaque strucure
     int posX;
     int posY;
@@ -20,18 +20,19 @@ typedef struct {
     int * traceChoisi;
 } Voiture;
 
-// Initialisation et destruction
-void Voiture_init(Voiture *voiture);
-void Voiture_destroy(Voiture *voiture);
+// Initialisation et destruction d'une voiture
+void voiture_init(Voiture *voiture);
+void voiture_destroy(Voiture *voiture);
 
 // Déplacement
-void Voiture_deplacer(Voiture *voiture);
-void Voiture_deplacementVertical(Voiture *voiture, Voiture *voitureDevant);
-void Voiture_deplacementHorizontal(Voiture *voiture, Voiture *voitureDevant);
-void Voiture_bouger(Voiture *voiture);
+void voiture_deplacer(Voiture *voiture);
+void voiture_deplacementVertical(Voiture *voiture, Voiture *voitureDevant);
+void voiture_deplacementHorizontal(Voiture *voiture, Voiture *voitureDevant);
+void voiture_bouger(Voiture *voiture);
 
 // Fonction intermédiaire
-int Voiture_definirIndiceCarrefourDest(int depart, int arrivee);
-int Voiture_trouverIndiceVoitureDansFile(Voiture *voiture);
+int voiture_definirIndiceCarrefourDest(int depart, int arrivee);
+int voiture_trouverIndiceVoitureDansFile(Voiture *voiture);
 
 #endif // VOITURE_H_INCLUDED
+*/
