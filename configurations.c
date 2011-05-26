@@ -2,7 +2,9 @@
 #include <stdlib.h>
 
 #include "Structures.h"
+#include "Carrefour.h"
 #include "Voiture.h"
+#include "Feu.h"
 
 void init_config()
 {
@@ -35,6 +37,15 @@ void init_config()
 
     // Phase 2 : Initialisation des segments
     // Segments verticaux
+*/
+/*    ListeSegments[0][4] = Segment_init(Carrefour_init(0),Carrefour_init(4));
+    ListeSegments[4][0] = Segment_init(Carrefour_init(4),Carrefour_init(0));
+    ListeSegments[4][9] = Segment_init(Carrefour_init(4),Carrefour_init(9));
+    ListeSegments[9][4] = Segment_init(Carrefour_init(9),Carrefour_init(4));
+    ListeSegments[9][14] = Segment_init(Carrefour_init(9),Carrefour_init(14));
+    ListeSegments[14][9] = Segment_init(Carrefour_init(14),Carrefour_init(9));
+    ListeSegments[14][18] = Segment_init(Carrefour_init(14),Carrefour_init(18));
+    ListeSegments[18][14] = Segment_init(Carrefour_init(18),Carrefour_init(14));
 
     ListeSegments[0][4] = Segment_init(carrefour0,carrefour4);
     ListeSegments[4][0] = Segment_init(carrefour4,carrefour0);

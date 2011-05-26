@@ -1,17 +1,10 @@
-#ifndef STRUCTURES_H_INCLUDED
+/*#ifndef STRUCTURES_H_INCLUDED
 #define STRUCTURES_H_INCLUDED
 
 #include "Voiture.h"
-//#include "Feu.h"
+#include "Feu.h"
+#include "Carrefour.h"
 
-typedef struct {
-    int id;
-    int posX;
-    int posY;
-    // Feu
-} Carrefour;
-
-Carrefour * ListeCarrefours[21];
 
 // File : liste doublement chainée
 typedef struct {
@@ -28,13 +21,14 @@ typedef struct {
     File * file;
 } Segment;
 
-Segment * ListeSegments[21][21];
+Segment * listeSegments[MAX_CARREFOUR][MAX_CARREFOUR];
 
 
 
-Carrefour * Carrefour_init(int id, int posX, int posY);
-Segment * Segment_init(Carrefour * carEnt, Carrefour * carSor);
+
+Segment * segment_init(Carrefour * carEnt, Carrefour * carSor);
 
 
 
 #endif // STRUCTURES_H_INCLUDED
+*/
