@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <SDL/SDL.h>
 
+#include "Configurations.c"
+
 int main(int argc, char *argv[])
 {
     /*****************************************
@@ -22,11 +24,6 @@ int main(int argc, char *argv[])
     SDL_Rect position;
     int continuer = 1;
     int i;
-
-    int longueurRoutes = 500;
-    int largeurRoutes = 40;
-    int espaceRoutes = 95; // espaceRoutes = (longueurRoutes - 3*largeurRoutes) / 4
-    int padding = 40;
     // ------------------------------------------
 
 
