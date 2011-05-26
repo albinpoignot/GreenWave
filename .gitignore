@@ -1,2 +1,6 @@
 bin/
 obj/
+DOC/
+GreenWave.cbp
+GreenWave.depend
+GreenWave.layout

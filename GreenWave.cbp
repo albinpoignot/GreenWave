@@ -39,15 +39,23 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="Carrefour.h" />
+		<Unit filename="Configurations.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Configurations.h" />
 		<Unit filename="Feu.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="Feu.h" />
-		<Unit filename="Structures.h" />
-		<Unit filename="Voiture.h" />
-		<Unit filename="configurations.c">
+		<Unit filename="Segment.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="Segment.h" />
+		<Unit filename="Structures.h" />
+		<Unit filename="Voiture.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Voiture.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>

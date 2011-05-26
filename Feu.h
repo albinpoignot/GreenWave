@@ -1,6 +1,3 @@
-#ifndef FEU_H_INCLUDED
-#define FEU_H_INCLUDED
-
 typedef struct {
     int isVert; //feu vert = 1; feu rouge = 0
     int tempo;
@@ -27,6 +24,3 @@ void feu_changerCouleurFinTempo(Feu feu);
 
 // Temporisation
 void feu_temporisation (Feu feu); //Trouver paramètres ou si suppressions
-
-
-#endif // FEU_H_INCLUDED

@@ -5,6 +5,27 @@
 //#include "Feu.h" >>> pas la peine car Carrefour.h l'inclut déjà
 
 
+Carrefour * Carrefour_init(int id, int posX, int posY)
+{
+    Carrefour * carr = NULL;
+    carr = (Carrefour *)malloc(sizeof(Carrefour));
+
+    if(carr == NULL)
+    {
+        printf("Erreur lors de l'initialisation d'un carrefour (id:%d", id);
+        exit(0);
+    }
+
+    carr->id = id;
+    carr->posX = posX;
+    carr->posY = posY;
+
+    // Ajouter l'initialisation du tableau de Feux
+
+    return carr;
+}
+
+
 // Détection et correction des erreurs de synchronisation des feux d'un carrefour
 void carrefour_detecterErreur(Carrefour carrefour)
 {

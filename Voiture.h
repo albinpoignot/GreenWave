@@ -1,6 +1,3 @@
-/*#ifndef VOITURE_H_INCLUDED
-#define VOITURE_H_INCLUDED
-
 typedef struct {
 
     // Variables initialisées par Voiture_init()
@@ -21,18 +18,15 @@ typedef struct {
 } Voiture;
 
 // Initialisation et destruction d'une voiture
-void voiture_init(Voiture *voiture);
-void voiture_destroy(Voiture *voiture);
+Voiture * Voiture_create();
+void Voiture_destroy(Voiture *voiture);
 
 // Déplacement
-void voiture_deplacer(Voiture *voiture);
-void voiture_deplacementVertical(Voiture *voiture, Voiture *voitureDevant);
-void voiture_deplacementHorizontal(Voiture *voiture, Voiture *voitureDevant);
-void voiture_bouger(Voiture *voiture);
+void Voiture_deplacer(Voiture *voiture);
+void Voiture_deplacementVertical(Voiture *voiture, Voiture *voitureDevant);
+void Voiture_deplacementHorizontal(Voiture *voiture, Voiture *voitureDevant);
+void Voiture_bouger(Voiture *voiture);
 
 // Fonction intermédiaire
-int voiture_definirIndiceCarrefourDest(int depart, int arrivee);
-int voiture_trouverIndiceVoitureDansFile(Voiture *voiture);
-
-#endif // VOITURE_H_INCLUDED
-*/
+int Voiture_definirIndiceCarrefourDest(int depart, int arrivee);
+int Voiture_trouverIndiceVoitureDansFile(Voiture *voiture);

@@ -1,16 +1,87 @@
-#include <stdio.h>
-#include <stdlib.h>
+//#include <stdio.h>
+//#include <stdlib.h>
 
-#include "Structures.h"
-#include "Carrefour.h"
-#include "Voiture.h"
-#include "Feu.h"
+#include "Configurations.h"
 
 int longueurRoutes = 500;
 int largeurRoutes = 40;
 int espaceRoutes = 95; // espaceRoutes = (longueurRoutes - 3*largeurRoutes) / 4
 int padding = 40;
 
+// Tableau des tracés possibles
+int traces[62][5] = {
+    {4},
+    {4,5},
+    {4,5,6},
+    {4,5,6,11},
+    {4,5,6,11,16},
+    {4,5,10,15},
+    {4,5,10,11,16},
+    {4,5,10,15,16},
+    {4,9},
+    {4,9,10,11},
+    {4,9,10,11,16},
+    {4,9,10,15},
+    {4,9,10,15,16},
+    {4,9,14},
+    {4,9,14,15},
+    {4,9,14,15,16},
+
+    {5,4},
+    {5,4,9},
+    {5,4,9,14},
+    {5,6},
+    {5,6,11},
+    {5,6,11,16},
+    {5,10,9},
+    {5,10,9,14},
+    {5,10,11},
+    {5,10,11,16},
+    {5,10,15},
+    {5,10,15,14},
+    {5,10,15,16},
+
+    {6},
+    {6,5,4,9},
+    {6,5,4,9,14},
+    {6,5,10,9},
+    {6,5,10,9,14},
+    {6,5,10,15},
+    {6,5,10,15,14},
+    {6,11},
+    {6,11,10,9},
+    {6,11,10,9,14},
+    {6,11,10,15},
+    {6,11,10,15,14},
+    {6,11,16},
+    {6,11,16,15,14},
+    {6,11,16,15},
+
+    {9,10,11},
+    {9,10,11,16},
+    {9,10,15},
+    {9,10,15,16},
+    {9,14},
+    {9,14,15},
+    {9,14,15,16},
+
+    {11,10,9,14},
+    {11,10,15},
+    {11,10,15,14},
+    {11,16},
+    {11,16,15},
+    {11,16,15,14},
+
+    {14},
+    {14,5},
+    {14,15,16},
+
+    {16},
+    {16,15}
+};
+
+// Initialise tous les carrefours puis configure les segments
+// Définit ensuite les chemins entre les points
 void init_config()
 {
     // Phase 1 : Initialisation des carrefours
@@ -42,147 +113,211 @@ void init_config()
 
     // Phase 2 : Initialisation des segments
     // Segments verticaux
-*/
-/*    ListeSegments[0][4] = Segment_init(Carrefour_init(0),Carrefour_init(4));
-    ListeSegments[4][0] = Segment_init(Carrefour_init(4),Carrefour_init(0));
-    ListeSegments[4][9] = Segment_init(Carrefour_init(4),Carrefour_init(9));
-    ListeSegments[9][4] = Segment_init(Carrefour_init(9),Carrefour_init(4));
-    ListeSegments[9][14] = Segment_init(Carrefour_init(9),Carrefour_init(14));
-    ListeSegments[14][9] = Segment_init(Carrefour_init(14),Carrefour_init(9));
-    ListeSegments[14][18] = Segment_init(Carrefour_init(14),Carrefour_init(18));
-    ListeSegments[18][14] = Segment_init(Carrefour_init(18),Carrefour_init(14));
+    listeSegments[0][4] = Segment_init(carrefour0,carrefour4);
+    listeSegments[4][0] = Segment_init(carrefour4,carrefour0);
+    listeSegments[4][9] = Segment_init(carrefour4,carrefour9);
+    listeSegments[9][4] = Segment_init(carrefour9,carrefour4);
+    listeSegments[9][14] = Segment_init(carrefour9,carrefour14);
+    listeSegments[14][9] = Segment_init(carrefour14,carrefour9);
+    listeSegments[14][18] = Segment_init(carrefour14,carrefour18);
+    listeSegments[18][14] = Segment_init(carrefour18,carrefour14);
 
-    ListeSegments[0][4] = Segment_init(carrefour0,carrefour4);
-    ListeSegments[4][0] = Segment_init(carrefour4,carrefour0);
-    ListeSegments[4][9] = Segment_init(carrefour4,carrefour9);
-    ListeSegments[9][4] = Segment_init(carrefour9,carrefour4);
-    ListeSegments[9][14] = Segment_init(carrefour9,carrefour14);
-    ListeSegments[14][9] = Segment_init(carrefour14,carrefour9);
-    ListeSegments[14][18] = Segment_init(carrefour14,carrefour18);
-    ListeSegments[18][14] = Segment_init(carrefour18,carrefour14);
+    listeSegments[1][5] = Segment_init(carrefour1,carrefour5);
+    listeSegments[5][1] = Segment_init(carrefour5,carrefour1);
+    listeSegments[5][10] = Segment_init(carrefour5,carrefour10);
+    listeSegments[10][5] = Segment_init(carrefour10,carrefour5);
+    listeSegments[10][15] = Segment_init(carrefour10,carrefour15);
+    listeSegments[15][10] = Segment_init(carrefour15,carrefour10);
+    listeSegments[15][19] = Segment_init(carrefour15,carrefour19);
+    listeSegments[19][15] = Segment_init(carrefour19,carrefour15);
 
-    ListeSegments[1][5] = Segment_init(carrefour1,carrefour5);
-    ListeSegments[5][1] = Segment_init(carrefour5,carrefour1);
-    ListeSegments[5][10] = Segment_init(carrefour5,carrefour10);
-    ListeSegments[10][5] = Segment_init(carrefour10,carrefour5);
-    ListeSegments[10][15] = Segment_init(carrefour10,carrefour15);
-    ListeSegments[15][10] = Segment_init(carrefour15,carrefour10);
-    ListeSegments[15][19] = Segment_init(carrefour15,carrefour19);
-    ListeSegments[19][15] = Segment_init(carrefour19,carrefour15);
-
-    ListeSegments[2][6] = Segment_init(carrefour12,carrefour6);
-    ListeSegments[6][2] = Segment_init(carrefour6,carrefour2);
-    ListeSegments[6][11] = Segment_init(carrefour6,carrefour11);
-    ListeSegments[11][6] = Segment_init(carrefour11,carrefour6);
-    ListeSegments[11][16] = Segment_init(carrefour11,carrefour16);
-    ListeSegments[16][11] = Segment_init(carrefour16,carrefour11);
-    ListeSegments[16][20] = Segment_init(carrefour16,carrefour20);
-    ListeSegments[20][16] = Segment_init(carrefour20,carrefour16);
+    listeSegments[2][6] = Segment_init(carrefour12,carrefour6);
+    listeSegments[6][2] = Segment_init(carrefour6,carrefour2);
+    listeSegments[6][11] = Segment_init(carrefour6,carrefour11);
+    listeSegments[11][6] = Segment_init(carrefour11,carrefour6);
+    listeSegments[11][16] = Segment_init(carrefour11,carrefour16);
+    listeSegments[16][11] = Segment_init(carrefour16,carrefour11);
+    listeSegments[16][20] = Segment_init(carrefour16,carrefour20);
+    listeSegments[20][16] = Segment_init(carrefour20,carrefour16);
 
     // Segments horizontaux
-    ListeSegments[3][4] = Segment_init(carrefour3,carrefour4);
-    ListeSegments[4][3] = Segment_init(carrefour4,carrefour3);
-    ListeSegments[4][5] = Segment_init(carrefour4,carrefour5);
-    ListeSegments[5][4] = Segment_init(carrefour5,carrefour4);
-    ListeSegments[5][6] = Segment_init(carrefour5,carrefour6);
-    ListeSegments[6][5] = Segment_init(carrefour6,carrefour5);
-    ListeSegments[6][7] = Segment_init(carrefour6,carrefour7);
-    ListeSegments[7][6] = Segment_init(carrefour7,carrefour6);
+    listeSegments[3][4] = Segment_init(carrefour3,carrefour4);
+    listeSegments[4][3] = Segment_init(carrefour4,carrefour3);
+    listeSegments[4][5] = Segment_init(carrefour4,carrefour5);
+    listeSegments[5][4] = Segment_init(carrefour5,carrefour4);
+    listeSegments[5][6] = Segment_init(carrefour5,carrefour6);
+    listeSegments[6][5] = Segment_init(carrefour6,carrefour5);
+    listeSegments[6][7] = Segment_init(carrefour6,carrefour7);
+    listeSegments[7][6] = Segment_init(carrefour7,carrefour6);
 
-    ListeSegments[8][9] = Segment_init(carrefour8,carrefour9);
-    ListeSegments[9][8] = Segment_init(carrefour9,carrefour8);
-    ListeSegments[9][10] = Segment_init(carrefour9,carrefour10);
-    ListeSegments[10][9] = Segment_init(carrefour10,carrefour9);
-    ListeSegments[10][11] = Segment_init(carrefour10,carrefour11);
-    ListeSegments[11][10] = Segment_init(carrefour11,carrefour10);
-    ListeSegments[11][12] = Segment_init(carrefour11,carrefour12);
-    ListeSegments[12][11] = Segment_init(carrefour12,carrefour11);
+    listeSegments[8][9] = Segment_init(carrefour8,carrefour9);
+    listeSegments[9][8] = Segment_init(carrefour9,carrefour8);
+    listeSegments[9][10] = Segment_init(carrefour9,carrefour10);
+    listeSegments[10][9] = Segment_init(carrefour10,carrefour9);
+    listeSegments[10][11] = Segment_init(carrefour10,carrefour11);
+    listeSegments[11][10] = Segment_init(carrefour11,carrefour10);
+    listeSegments[11][12] = Segment_init(carrefour11,carrefour12);
+    listeSegments[12][11] = Segment_init(carrefour12,carrefour11);
 
-    ListeSegments[13][14] = Segment_init(carrefour13,carrefour14);
-    ListeSegments[14][13] = Segment_init(carrefour14,carrefour13);
-    ListeSegments[14][15] = Segment_init(carrefour14,carrefour15);
-    ListeSegments[15][14] = Segment_init(carrefour15,carrefour14);
-    ListeSegments[15][16] = Segment_init(carrefour15,carrefour16);
-    ListeSegments[16][15] = Segment_init(carrefour16,carrefour15);
-    ListeSegments[16][17] = Segment_init(carrefour16,carrefour17);
-    ListeSegments[17][16] = Segment_init(carrefour17,carrefour16);
+    listeSegments[13][14] = Segment_init(carrefour13,carrefour14);
+    listeSegments[14][13] = Segment_init(carrefour14,carrefour13);
+    listeSegments[14][15] = Segment_init(carrefour14,carrefour15);
+    listeSegments[15][14] = Segment_init(carrefour15,carrefour14);
+    listeSegments[15][16] = Segment_init(carrefour15,carrefour16);
+    listeSegments[16][15] = Segment_init(carrefour16,carrefour15);
+    listeSegments[16][17] = Segment_init(carrefour16,carrefour17);
+    listeSegments[17][16] = Segment_init(carrefour17,carrefour16);
 
     // Phase 3 : Initialisation des chemins possibles
-    int i;
-    traces = (int **) malloc(61 * sizeof(int*));
-    for(i=0; i<=61; i++)
-    {
-        traces[i] = (int *)malloc(5 * sizeof(int));
-    }
+    chemins[0][1][0] = 1;
+    chemins[0][2][0] = 2;
+    chemins[0][3][0] = 0;
+    chemins[0][7][0] = chemins[0][2][0];
+    chemins[0][8][0] = 8;
+    chemins[0][12][0] = 3;
+    chemins[0][12][1] = 9;
+    chemins[0][13][0] = 13;
+    chemins[0][17][0] = 4;
+    chemins[0][17][1] = 6;
+    chemins[0][17][2] = 7;
+    chemins[0][17][3] = 12;
+    chemins[0][17][4] = 10;
+    chemins[0][17][5] = 15;
+    chemins[0][18][0] = chemins[0][13][0];
+    chemins[0][19][0] = 5;
+    chemins[0][19][1] = 14;
+    chemins[0][19][2] = 11;
+    chemins[0][20][0] = chemins[0][17][0];
+    chemins[0][20][1] = chemins[0][17][1];
+    chemins[0][20][2] = chemins[0][17][2];
+    chemins[0][20][3] = chemins[0][17][3];
+    chemins[0][20][4] = chemins[0][17][4];
+    chemins[0][20][5] = chemins[0][17][5];
 
-    traces[0] = {4};
-    traces[1] = {4,5};
-    traces[2] = {4,5,6};
-    traces[3] = {4,5,6,11};
-    traces[4] = {4,5,6,11,16};
-    traces[5] = {4,5,10,15};
-    traces[6] = {4,5,10,11,16};
-    traces[7] = {4,5,10,15,16};
-    traces[8] = {4,9};
-    traces[9] = {4,9,10,11};
-    traces[10] = {4,9,10,11,16};
-    traces[11] = {4,9,10,15};
-    traces[12] = {4,9,10,15,16};
-    traces[13] = {4,5};
-    traces[14] = {4,9,14};
-    traces[15] = {4,9,14,15};
-    traces[16] = {4,9,14,15,16};
+    chemins[1][2][0] = 19;
+    chemins[1][3][0] = 16;
+    chemins[1][7][0] = chemins[1][2][0];
+    chemins[1][8][0] = 22;
+    chemins[1][12][0] = 20;
+    chemins[1][12][1] = 24;
+    chemins[1][13][0] = 18;
+    chemins[1][13][1] = 23;
+    chemins[1][13][2] = 27;
+    chemins[1][17][0] = 21;
+    chemins[1][17][1] = 25;
+    chemins[1][17][2] = 28;
+    chemins[1][18][0] = chemins[1][13][0];
+    chemins[1][18][1] = chemins[1][13][1];
+    chemins[1][18][2] = chemins[1][13][2];
+    chemins[1][19][0] = 26;
+    chemins[1][20][0] = chemins[1][17][0];
+    chemins[1][20][1] = chemins[1][17][1];
+    chemins[1][20][2] = chemins[1][17][2];
 
-    traces[17] = {5,4,9};
-    traces[18] = {5,4,9,14};
-    traces[19] = {5,6};
-    traces[20] = {5,6,11};
-    traces[21] = {5,6,11,16};
-    traces[22] = {5,10,9};
-    traces[23] = {5,10,9,14};
-    traces[24] = {5,10,11};
-    traces[25] = {5,10,11,16};
-    traces[26] = {5,10,15};
-    traces[27] = {5,10,15,14};
-    traces[28] = {5,10,15,16};
+    chemins[2][3][0] = chemins[0][2][0];
+    chemins[2][7][0] = 29;
+    chemins[2][8][0] = 30;
+    chemins[2][8][1] = 22;
+    chemins[2][8][2] = 37;
+    chemins[2][12][0] = 36;
+    chemins[2][13][0] = 31;
+    chemins[2][13][1] = 33;
+    chemins[2][13][2] = 35;
+    chemins[2][13][3] = 38;
+    chemins[2][13][4] = 40;
+    chemins[2][13][5] = 42;
+    chemins[2][17][0] = 41;
+    chemins[2][18][0] = chemins[2][13][0];
+    chemins[2][18][1] = chemins[2][13][1];
+    chemins[2][18][2] = chemins[2][13][2];
+    chemins[2][18][3] = chemins[2][13][3];
+    chemins[2][18][4] = chemins[2][13][4];
+    chemins[2][18][5] = chemins[2][13][5];
+    chemins[2][19][0] = 34;
+    chemins[2][19][1] = 39;
+    chemins[2][19][2] = 43;
+    chemins[2][20][0] = chemins[2][17][0];
 
-    traces[29] = {6};
-    traces[30] = {6,5,4,9};
-    traces[31] = {6,5,4,9,14};
-    traces[32] = {6,5,10,9};
-    traces[33] = {6,5,10,9,14};
-    traces[34] = {6,5,10,15};
-    traces[35] = {6,5,10,15,14};
-    traces[36] = {6,11};
-    traces[37] = {6,11,10,9};
-    traces[38] = {6,11,10,15};
-    traces[39] = {6,11,10,9,14};
-    traces[40] = {6,11,10,15,14};
-    traces[41] = {6,11,16};
-    traces[42] = {6,11,16,15,14};
-    traces[43] = {6,11,16,15};
+    chemins[3][7][0] = chemins[0][7][0];
+    chemins[3][8][0] = chemins[0][8][0];
+    chemins[3][12][0] = chemins[0][12][0];
+    chemins[3][12][1] = chemins[0][12][1];
+    chemins[3][13][0] = chemins[0][13][0];
+    chemins[3][17][0] = chemins[0][17][0];
+    chemins[3][17][1] = chemins[0][17][1];
+    chemins[3][17][2] = chemins[0][17][2];
+    chemins[3][17][3] = chemins[0][17][3];
+    chemins[3][17][4] = chemins[0][17][4];
+    chemins[3][17][5] = chemins[0][17][5];
+    chemins[3][18][0] = chemins[0][18][0];
+    chemins[3][19][0] = chemins[0][19][0];
+    chemins[3][19][1] = chemins[0][19][1];
+    chemins[3][19][2] = chemins[0][19][2];
+    chemins[3][20][0] = chemins[0][20][0];
+    chemins[3][20][1] = chemins[0][20][1];
+    chemins[3][20][2] = chemins[0][20][2];
+    chemins[3][20][3] = chemins[0][20][3];
+    chemins[3][20][4] = chemins[0][20][4];
+    chemins[3][20][5] = chemins[0][20][5];
 
-    traces[44] = {9,10,11};
-    traces[45] = {9,10,11,16};
-    traces[46] = {9,10,15};
-    traces[47] = {9,14};
-    traces[48] = {9,14,15};
-    traces[49] = {9,10,15,16};
-    traces[50] = {9,14,15,16};
+    chemins[7][8][0] = chemins[2][8][0];
+    chemins[7][8][1] = chemins[2][8][1];
+    chemins[7][8][2] = chemins[2][8][2];
+    chemins[7][12][0] = chemins[2][12][0];
+    chemins[7][13][0] = chemins[2][13][0];
+    chemins[7][13][1] = chemins[2][13][1];
+    chemins[7][13][2] = chemins[2][13][2];
+    chemins[7][13][3] = chemins[2][13][3];
+    chemins[7][13][4] = chemins[2][13][4];
+    chemins[7][13][5] = chemins[2][13][5];
+    chemins[7][17][0] = chemins[2][17][0];
+    chemins[7][18][0] = chemins[2][18][0];
+    chemins[7][18][1] = chemins[2][18][1];
+    chemins[7][18][2] = chemins[2][18][2];
+    chemins[7][18][3] = chemins[2][18][3];
+    chemins[7][18][4] = chemins[2][18][4];
+    chemins[7][18][5] = chemins[2][18][5];
+    chemins[7][19][0] = chemins[2][19][0];
+    chemins[7][19][1] = chemins[2][19][1];
+    chemins[7][19][2] = chemins[2][19][2];
+    chemins[7][20][0] = chemins[2][20][0];
 
-    traces[51] = {11,10,9,14};
-    traces[52] = {11,10,15};
-    traces[53] = {11,10,15,14};
-    traces[54] = {11,16};
-    traces[55] = {11,16,15};
-    traces[56] = {11,16,15,14};
+    chemins[8][12][0] = 44;
+    chemins[8][13][0] = 48;
+    chemins[8][17][0] = 45;
+    chemins[8][17][1] = 47;
+    chemins[8][17][2] = 50;
+    chemins[8][18][0] = chemins[8][13][0];
+    chemins[8][19][0] = 46;
+    chemins[8][19][1] = 49;
+    chemins[8][20][0] = chemins[8][17][0];
+    chemins[8][20][1] = chemins[8][17][1];
+    chemins[8][20][2] = chemins[8][17][2];
 
-    traces[57] = {14};
-    traces[58] = {14,5};
-    traces[59] = {14,15,16};
+    chemins[12][13][0] = 51;
+    chemins[12][13][1] = 53;
+    chemins[12][13][2] = 56;
+    chemins[12][17][0] = 54;
+    chemins[12][18][0] = chemins[12][13][0];
+    chemins[12][18][1] = chemins[12][13][1];
+    chemins[12][18][2] = chemins[12][13][2];
+    chemins[12][19][0] = 52;
+    chemins[12][19][1] = 55;
+    chemins[12][20][0] = chemins[12][17][0];
 
-    traces[60] = {15,16};
+    chemins[13][17][0] = 59;
+    chemins[13][18][0] = 57;
+    chemins[13][19][0] = 58;
+    chemins[13][20][0] = 59;
 
-    traces[61] = {16};
+    chemins[17][18][0] = chemins[13][17][0];
+    chemins[17][19][0] = 61;
+    chemins[17][20][0] = 60;
 
+    chemins[18][19][0] = chemins[13][18][0];
+    chemins[18][20][0] = chemins[13][20][0];
+
+    chemins[19][20][0] = chemins[17][19][0];
 }
+
+
