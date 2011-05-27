@@ -4,7 +4,7 @@
 #include "Voiture.h"
 #include "Segment.h"
 
-/*int longueurRoutes = 50;
+/*int longueurRoutes = 500;
 int largeurRoutes = 40;
 int espaceRoutes = 95; // espaceRoutes = (longueurRoutes - 3*largeurRoutes) / 4
 int padding = 40;

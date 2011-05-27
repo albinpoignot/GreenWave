@@ -2,32 +2,37 @@
 #define SEGMENT_H
 
 #include "Carrefour.h"
-#include "Segment.h"
-#include "Voiture.h"
+//#include "Voiture.h" <- Est inclut plus loin dans le fichier pour permettre de faire certains typedef avant
 
 /**
  * Segment de route (1 par sens de circulation)
  *  -> relie deux carrefours entre eux
  */
-typedef struct {
+typedef struct Segment Segment;
+
+struct Segment {
     Carrefour * carrefourEntree;
     Carrefour * carrefourSortie;
     struct File * file;
-} Segment;
+};
 
+typedef int Traces[62][5];
+typedef Segment ListeSegments[MAX_CARREFOUR][MAX_CARREFOUR][1];
+//typedef int ListeSegments;
+
+
+#include "Voiture.h"
 /**
  * File de véhicules (une par segment)
  */
-typedef struct {
+typedef struct File File;
+struct File {
     int id;
-    struct File * voitureAvant;
+    struct Voiture * voitureAvant;
     struct Voiture * voiture;
-    struct File * voitureApres;
-} File;
+    struct Voiture * voitureApres;
+};
 
-typedef int Traces[62][5];
-
-typedef Segment ListeSegments[MAX_CARREFOUR][MAX_CARREFOUR][1];
 
 //Segment * listeSegments[MAX_CARREFOUR][MAX_CARREFOUR];
 Segment * Segment_init(Carrefour * carrefour1, Carrefour * carrefour4);

@@ -4,10 +4,10 @@
 
 #include "Configurations.h"
 
-#define LONGUEUR_ROUTES 50;
-#define LARGEUR_ROUTES 40;
-#define ESPACE_ROUTES 95; // espaceRoutes = (longueurRoutes - 3*largeurRoutes) / 4
-#define PADDING 40;
+#define LONGUEUR_ROUTES 500
+#define LARGEUR_ROUTES 40
+#define ESPACE_ROUTES 95 // espaceRoutes = (LONGUEUR_ROUTES - 3*LARGEUR_ROUTES) / 4
+#define PADDING 40
 
 SDL_Surface * lancerEcran();
 void dessinerQuartier(SDL_Surface * ecran);
@@ -162,7 +162,7 @@ void dessinerQuartier(SDL_Surface * ecran)
     for(i = 0; i <= 2; i++)
     {
         SDL_BlitSurface(routesV, NULL, ecran, &position);
-        position.x += espaceRoutes + largeurRoutes;
+        position.x += ESPACE_ROUTES + LARGEUR_ROUTES;
     }
 
     // --------------------------------------------
@@ -170,17 +170,17 @@ void dessinerQuartier(SDL_Surface * ecran)
     // --------------------------------------------
 
     // Création et initialisation du rectangle des routes horizontales
-    routesH = SDL_CreateRGBSurface(SDL_HWSURFACE, longueurRoutes, largeurRoutes, 32, 0, 0, 0, 0);
+    routesH = SDL_CreateRGBSurface(SDL_HWSURFACE, LONGUEUR_ROUTES, LARGEUR_ROUTES, 32, 0, 0, 0, 0);
     SDL_FillRect(routesH, NULL, blanc);
 
     // La première route verticale sera à cette position
-    position.x = padding;
-    position.y = espaceRoutes + padding;
+    position.x = PADDING;
+    position.y = ESPACE_ROUTES + PADDING;
 
     for(i = 0; i <= 2; i++)
     {
         SDL_BlitSurface(routesH, NULL, ecran, &position);
-        position.y += espaceRoutes + largeurRoutes;
+        position.y += ESPACE_ROUTES + LARGEUR_ROUTES;
     }
 
 

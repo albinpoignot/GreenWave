@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1306518712 source:/home/albin/Developpement/GreenWave/main.c
+1306532614 source:/home/albin/Developpement/GreenWave/main.c
 	<stdio.h>
 	<stdlib.h>
 	<SDL/SDL.h>
@@ -58,7 +58,7 @@
 1306525717 /home/albin/Developpement/GreenWave/Structures.h
 	"Voiture.h"
 
-1306529034 /home/albin/Developpement/GreenWave/Voiture.h
+1306533743 /home/albin/Developpement/GreenWave/Voiture.h
 	"Feu.h"
 	"Segment.h"
 
@@ -75,13 +75,12 @@
 	"Voiture.h"
 	"Feu.h"
 
-1306527647 /home/albin/Developpement/GreenWave/Configurations.h
+1306532635 /home/albin/Developpement/GreenWave/Configurations.h
 	"Voiture.h"
 	"Segment.h"
 
-1306529312 /home/albin/Developpement/GreenWave/Segment.h
+1306532066 /home/albin/Developpement/GreenWave/Segment.h
 	"Carrefour.h"
-	"Segment.h"
 	"Voiture.h"
 
 1306515704 source:/home/albin/Developpement/GreenWave/Segment.c
@@ -89,7 +88,7 @@
 	<stdlib.h>
 	"Segment.h"
 
-1306524067 source:/home/albin/Developpement/GreenWave/Voiture.c
+1306533729 source:/home/albin/Developpement/GreenWave/Voiture.c
 	<stdio.h>
 	<stdlib.h>
 	<math.h>

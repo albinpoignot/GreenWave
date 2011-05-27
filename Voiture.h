@@ -4,7 +4,8 @@
 #include "Feu.h"
 #include "Segment.h"
 
-typedef struct {
+typedef struct Voiture Voiture;
+struct Voiture {
     // Variables initialisées par Voiture_init()
     // et identiques pour chaque structure
     int vitesseMax;
@@ -20,19 +21,20 @@ typedef struct {
     int distanceSecuMouvement; // a supprimer ?
     struct File * fileActuelle; // Pointeur sur un tableau externe
     int * traceChoisi;
-} Voiture;
+};
 
 // Initialisation et destruction d'une voiture
 Voiture * Voiture_create();
 void Voiture_destroy(Voiture *voiture);
 
 // Déplacement
-void Voiture_deplacer(Voiture *voiture, ListeSegments listeSeg);
+void Voiture_deplacer(Voiture *voiture, ListeSegments listeSeg, ListeCarrefours listeCarr);
 void Voiture_deplacementHorizontal(Voiture *voiture, Voiture *voitureDevant, ListeCarrefours listeCarr);
-void Voiture_bouger(Voiture *voiture);
+void Voiture_bouger(Voiture *voiture, ListeCarrefours listeCarr);
 
 // Fonction intermédiaire
 int Voiture_definirIndiceCarrefourDest(int depart, int arrivee);
+Voiture * Voiture_trouverVoitureDevant(Voiture *voiture);
 int Voiture_trouverIndiceVoitureDansFile(Voiture *voiture);
 
 #endif // VOITURE_H
