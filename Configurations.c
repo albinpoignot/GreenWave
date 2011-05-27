@@ -1,90 +1,20 @@
-//#include <stdio.h>
-//#include <stdlib.h>
+/*#include <stdio.h>
+#include <stdlib.h>*/
 
 #include "Configurations.h"
 
-int longueurRoutes = 500;
-int largeurRoutes = 40;
-int espaceRoutes = 95; // espaceRoutes = (longueurRoutes - 3*largeurRoutes) / 4
-int padding = 40;
-
-// Tableau des tracés possibles
-int traces[62][5] = {
-    {4},
-    {4,5},
-    {4,5,6},
-    {4,5,6,11},
-    {4,5,6,11,16},
-    {4,5,10,15},
-    {4,5,10,11,16},
-    {4,5,10,15,16},
-    {4,9},
-    {4,9,10,11},
-    {4,9,10,11,16},
-    {4,9,10,15},
-    {4,9,10,15,16},
-    {4,9,14},
-    {4,9,14,15},
-    {4,9,14,15,16},
-
-    {5,4},
-    {5,4,9},
-    {5,4,9,14},
-    {5,6},
-    {5,6,11},
-    {5,6,11,16},
-    {5,10,9},
-    {5,10,9,14},
-    {5,10,11},
-    {5,10,11,16},
-    {5,10,15},
-    {5,10,15,14},
-    {5,10,15,16},
-
-    {6},
-    {6,5,4,9},
-    {6,5,4,9,14},
-    {6,5,10,9},
-    {6,5,10,9,14},
-    {6,5,10,15},
-    {6,5,10,15,14},
-    {6,11},
-    {6,11,10,9},
-    {6,11,10,9,14},
-    {6,11,10,15},
-    {6,11,10,15,14},
-    {6,11,16},
-    {6,11,16,15,14},
-    {6,11,16,15},
-
-    {9,10,11},
-    {9,10,11,16},
-    {9,10,15},
-    {9,10,15,16},
-    {9,14},
-    {9,14,15},
-    {9,14,15,16},
-
-    {11,10,9,14},
-    {11,10,15},
-    {11,10,15,14},
-    {11,16},
-    {11,16,15},
-    {11,16,15,14},
-
-    {14},
-    {14,5},
-    {14,15,16},
-
-    {16},
-    {16,15}
-};
-
-// Initialise tous les carrefours puis configure les segments
-// Définit ensuite les chemins entre les points
-void init_config()
+/**
+ * \fn void init_config(ListeSegments listeSegments, Traces traces, int *** chemins)
+ * \brief Initialise la liste des segments, des carrefours, des traces et des chemins.
+ *          Cette ne doit être appelée qu'une seule fois, au début du programme.
+ *
+ * \param listeSegments La variable qui contiendra la liste des segments
+ * \param traces La variable qui contiendra les traces
+ * \param chemins La variable qui contiendra les chemins
+ */
+void init_config(ListeSegments listeSeg, Traces traces, int *** chemins)
 {
-    // Phase 1 : Initialisation des carrefours
+    /*// Phase 1 : Initialisation des carrefours
     Carrefour * carrefour0 = Carrefour_init(0, padding, 0);
     Carrefour * carrefour1 = Carrefour_init(1, carrefour0->posX + espaceRoutes + largeurRoutes, 0);
     Carrefour * carrefour2 = Carrefour_init(2, carrefour1->posX + espaceRoutes + largeurRoutes, 0);
@@ -110,7 +40,7 @@ void init_config()
     Carrefour * carrefour18 = Carrefour_init(18, padding, padding + espaceRoutes + carrefour13->posY);
     Carrefour * carrefour19 = Carrefour_init(19, carrefour18->posX + espaceRoutes + largeurRoutes, carrefour18->posY);
     Carrefour * carrefour20 = Carrefour_init(20, carrefour19->posX + espaceRoutes + largeurRoutes, carrefour18->posY);
-
+printf("here%d\n", 2);
     // Phase 2 : Initialisation des segments
     // Segments verticaux
     listeSegments[0][4] = Segment_init(carrefour0,carrefour4);
@@ -167,8 +97,93 @@ void init_config()
     listeSegments[16][15] = Segment_init(carrefour16,carrefour15);
     listeSegments[16][17] = Segment_init(carrefour16,carrefour17);
     listeSegments[17][16] = Segment_init(carrefour17,carrefour16);
+printf("here%d\n", 3);
+    // Phase 3 : Initialisation des traces possibles
+    int tracesL[62][5] = {
+        {4},
+        {4,5},
+        {4,5,6},
+        {4,5,6,11},
+        {4,5,6,11,16},
+        {4,5,10,15},
+        {4,5,10,11,16},
+        {4,5,10,15,16},
+        {4,9},
+        {4,9,10,11},
+        {4,9,10,11,16},
+        {4,9,10,15},
+        {4,9,10,15,16},
+        {4,9,14},
+        {4,9,14,15},
+        {4,9,14,15,16},
 
-    // Phase 3 : Initialisation des chemins possibles
+        {5,4},
+        {5,4,9},
+        {5,4,9,14},
+        {5,6},
+        {5,6,11},
+        {5,6,11,16},
+        {5,10,9},
+        {5,10,9,14},
+        {5,10,11},
+        {5,10,11,16},
+        {5,10,15},
+        {5,10,15,14},
+        {5,10,15,16},
+
+        {6},
+        {6,5,4,9},
+        {6,5,4,9,14},
+        {6,5,10,9},
+        {6,5,10,9,14},
+        {6,5,10,15},
+        {6,5,10,15,14},
+        {6,11},
+        {6,11,10,9},
+        {6,11,10,9,14},
+        {6,11,10,15},
+        {6,11,10,15,14},
+        {6,11,16},
+        {6,11,16,15,14},
+        {6,11,16,15},
+
+        {9,10,11},
+        {9,10,11,16},
+        {9,10,15},
+        {9,10,15,16},
+        {9,14},
+        {9,14,15},
+        {9,14,15,16},
+
+        {11,10,9,14},
+        {11,10,15},
+        {11,10,15,14},
+        {11,16},
+        {11,16,15},
+        {11,16,15,14},
+
+        {14},
+        {14,5},
+        {14,15,16},
+
+        {16},
+        {16,15}
+    };
+printf("here%d\n", 4);
+    traces = tracesL;
+printf("here%d\n", 5);
+    // Phase 4 : Initialisation des chemins possibles
+    chemins = (int ***)malloc(20 * sizeof(int **));
+    int i, j;
+    for(i=0;i<=19;i++)
+    {
+        chemins[i] = (int **)malloc(20 * sizeof(int *));
+        for(j=0;j<=20;j++)
+        {
+            chemins[i][j] = (int *)malloc(5 * sizeof(int));
+        }
+    }
+
     chemins[0][1][0] = 1;
     chemins[0][2][0] = 2;
     chemins[0][3][0] = 0;
@@ -318,6 +333,8 @@ void init_config()
     chemins[18][20][0] = chemins[13][20][0];
 
     chemins[19][20][0] = chemins[17][19][0];
+printf("here%d\n", 6);*/
+
 }
 
 

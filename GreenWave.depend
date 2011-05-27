@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1306449677 source:/home/albin/Developpement/GreenWave/main.c
+1306518712 source:/home/albin/Developpement/GreenWave/main.c
 	<stdio.h>
 	<stdlib.h>
 	<SDL/SDL.h>
@@ -41,24 +41,26 @@
 1306424330 /media/USB DISK/Projet AlgoC 2010-2011/GreenWave/Carrefour.h
 	"Feu.h"
 
-1306439565 source:/home/albin/Developpement/GreenWave/Carrefour.c
+1306517865 source:/home/albin/Developpement/GreenWave/Carrefour.c
 	<stdio.h>
 	<stdlib.h>
 	"Carrefour.h"
 
-1306448372 /home/albin/Developpement/GreenWave/Carrefour.h
+1306527656 /home/albin/Developpement/GreenWave/Carrefour.h
 	"Feu.h"
 
-1306448382 /home/albin/Developpement/GreenWave/Feu.h
+1306528294 /home/albin/Developpement/GreenWave/Feu.h
 
-1306449439 source:/home/albin/Developpement/GreenWave/Configurations.c
+1306529267 source:/home/albin/Developpement/GreenWave/Configurations.c
+	<stdlib.h>
 	"Configurations.h"
 
-1306448587 /home/albin/Developpement/GreenWave/Structures.h
+1306525717 /home/albin/Developpement/GreenWave/Structures.h
 	"Voiture.h"
-	"Carrefour.h"
 
-1306450866 /home/albin/Developpement/GreenWave/Voiture.h
+1306529034 /home/albin/Developpement/GreenWave/Voiture.h
+	"Feu.h"
+	"Segment.h"
 
 1306431244 source:/home/albin/Developpement/GreenWave/Feu.c
 	<stdio.h>
@@ -73,14 +75,23 @@
 	"Voiture.h"
 	"Feu.h"
 
-1306449457 /home/albin/Developpement/GreenWave/Configurations.h
+1306527647 /home/albin/Developpement/GreenWave/Configurations.h
+	"Voiture.h"
 	"Segment.h"
 
-1306448351 /home/albin/Developpement/GreenWave/Segment.h
-	"Structures.h"
+1306529312 /home/albin/Developpement/GreenWave/Segment.h
+	"Carrefour.h"
+	"Segment.h"
+	"Voiture.h"
 
-1306448502 source:/home/albin/Developpement/GreenWave/Segment.c
+1306515704 source:/home/albin/Developpement/GreenWave/Segment.c
 	<stdio.h>
 	<stdlib.h>
 	"Segment.h"
+
+1306524067 source:/home/albin/Developpement/GreenWave/Voiture.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	"Voiture.h"
 

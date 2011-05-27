@@ -4,6 +4,11 @@
 
 #include "Configurations.h"
 
+#define LONGUEUR_ROUTES 50;
+#define LARGEUR_ROUTES 40;
+#define ESPACE_ROUTES 95; // espaceRoutes = (longueurRoutes - 3*largeurRoutes) / 4
+#define PADDING 40;
+
 SDL_Surface * lancerEcran();
 void dessinerQuartier(SDL_Surface * ecran);
 
@@ -23,17 +28,27 @@ int main(int argc, char *argv[])
     SDL_Surface *ecran = NULL;
     SDL_Event event;
     int continuer = 1;
+
+    ListeCarrefours listeCarrefours;
+    ListeSegments listeSegments;
+    int *** chemins = NULL;
+    Traces traces;
     // ------------------------------------------
 
     ecran = lancerEcran();
 
     /**************************************************
-     * Phase 2 : Initialisation du dessin du quartier *
+     * Phase 2 : Initialisation des variables locales *
+     **************************************************/
+     init_config(listeSegments, traces, chemins);
+
+    /**************************************************
+     * Phase 3 : Initialisation du dessin du quartier *
      **************************************************/
     dessinerQuartier(ecran);
 
     /************************************
-     * Phase 3 : Lancement du programme *
+     * Phase 4 : Lancement du programme *
      ************************************/
     // Evite à la fenêtre de se fermer toute seule
     while(continuer)
@@ -69,7 +84,7 @@ int main(int argc, char *argv[])
 
 
     /**************************************
-     * Phase 4 : Libération de la mémoire *
+     * Phase 5 : Libération de la mémoire *
      **************************************/
     // Free des surfaces
 //    SDL_FreeSurface(routesH);
@@ -121,7 +136,6 @@ void dessinerQuartier(SDL_Surface * ecran)
     SDL_Surface *routesH = NULL, *routesV = NULL;
     SDL_Rect position;
     int i;
-    SDL_PixelFormat * test;
 
     if(ecran == NULL)
     {
@@ -138,12 +152,12 @@ void dessinerQuartier(SDL_Surface * ecran)
 
     // Création et initialisation du rectangle des routes verticales
     blanc = SDL_MapRGB(ecran->format, 255, 255, 255);
-    routesV = SDL_CreateRGBSurface(SDL_HWSURFACE, largeurRoutes, longueurRoutes, 32, 0, 0, 0, 0);
+    routesV = SDL_CreateRGBSurface(SDL_HWSURFACE, LARGEUR_ROUTES, LONGUEUR_ROUTES, 32, 0, 0, 0, 0);
     SDL_FillRect(routesV, NULL, blanc);
 
     // La première route sera à cette position
-    position.x = espaceRoutes + padding;
-    position.y = padding;
+    position.x = ESPACE_ROUTES + PADDING;
+    position.y = PADDING;
 
     for(i = 0; i <= 2; i++)
     {

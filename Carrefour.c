@@ -42,7 +42,7 @@ void carrefour_detecterErreur(Carrefour carrefour)
 
 
 // Si l'ordonnancement aléatoire est choisi, cette fonction initialise la couleur des feux de manière aléatoire et corrige les erreurs de synchronisation
-void carrefour_ordoAlea(listeCarrefours tableauCarrefours)
+void carrefour_ordoAlea(ListeCarrefours tableauCarrefours)
 {
     int j;
 

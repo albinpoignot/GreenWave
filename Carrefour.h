@@ -1,7 +1,11 @@
+#ifndef CARREFOUR_H
+#define CARREFOUR_H
+
 #include "Feu.h"
 
 #define MAX_CARREFOUR 21
 #define MAX_FEU 4
+
 
 typedef struct {
     int id;
@@ -11,7 +15,7 @@ typedef struct {
 } Carrefour;
 
 
-typedef Carrefour listeCarrefours[MAX_CARREFOUR];
+typedef Carrefour ListeCarrefours[MAX_CARREFOUR];
 
 // Carrefour * ListeCarrefours[21];
 
@@ -25,9 +29,10 @@ void Carrefour_destroy(Carrefour carrefour);
 void Carrefour_detecterErreur(Carrefour carrefour);
 
 // Si l'ordonnancement aléatoire est choisi, cette fonction initialise la couleur des feux de manière aléatoire et corrige les erreurs de synchronisation
-void Carrefour_ordoAlea(listeCarrefours tableauCarrefours);
+void Carrefour_ordoAlea(ListeCarrefours tableauCarrefours);
 
 // Si l'ordonnancement Vague Verte est choisi, cette fonction initialise la couleur des feux de sorte à permettre une vague verte.
 // Elle corrige également les erreurs de synchronisation
 void Carrefour_ordoVagueVerte(Carrefour ** tableauCarrefours);
 
+#endif // CARREFOUR_H

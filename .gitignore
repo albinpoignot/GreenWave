@@ -4,3 +4,5 @@ DOC/
 GreenWave.cbp
 GreenWave.depend
 GreenWave.layout
+.gitignore
+.directory

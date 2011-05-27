@@ -1,5 +1,10 @@
-typedef struct {
+#ifndef VOITURE_H
+#define VOITURE_H
 
+#include "Feu.h"
+#include "Segment.h"
+
+typedef struct {
     // Variables initialisées par Voiture_init()
     // et identiques pour chaque structure
     int vitesseMax;
@@ -13,7 +18,7 @@ typedef struct {
     int posY;
     int vitesseInstantanee;
     int distanceSecuMouvement; // a supprimer ?
-    int * fileActuelle; // Pointeur sur un tableau externe
+    struct File * fileActuelle; // Pointeur sur un tableau externe
     int * traceChoisi;
 } Voiture;
 
@@ -22,11 +27,12 @@ Voiture * Voiture_create();
 void Voiture_destroy(Voiture *voiture);
 
 // Déplacement
-void Voiture_deplacer(Voiture *voiture);
-void Voiture_deplacementVertical(Voiture *voiture, Voiture *voitureDevant);
-void Voiture_deplacementHorizontal(Voiture *voiture, Voiture *voitureDevant);
+void Voiture_deplacer(Voiture *voiture, ListeSegments listeSeg);
+void Voiture_deplacementHorizontal(Voiture *voiture, Voiture *voitureDevant, ListeCarrefours listeCarr);
 void Voiture_bouger(Voiture *voiture);
 
 // Fonction intermédiaire
 int Voiture_definirIndiceCarrefourDest(int depart, int arrivee);
 int Voiture_trouverIndiceVoitureDansFile(Voiture *voiture);
+
+#endif // VOITURE_H
