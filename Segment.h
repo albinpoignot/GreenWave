@@ -18,8 +18,10 @@ struct Segment {
     struct File * file;
 };
 
-typedef int Traces[62][5];
-typedef Segment * ListeSegments[MAX_CARREFOUR][MAX_CARREFOUR];
+//typedef int Traces[62][5];
+typedef int ** Traces;
+//typedef Segment * ListeSegments[MAX_CARREFOUR][MAX_CARREFOUR];
+typedef Segment ** ListeSegments;
 //typedef int ListeSegments;
 
 

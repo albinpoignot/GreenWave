@@ -8,10 +8,10 @@
 		<Cursor position="61" topLine="0" />
 	</File>
 	<File name="Configurations.c" open="1" top="0" tabpos="6">
-		<Cursor position="13082" topLine="310" />
+		<Cursor position="19042" topLine="385" />
 	</File>
 	<File name="Configurations.h" open="1" top="0" tabpos="1">
-		<Cursor position="120" topLine="0" />
+		<Cursor position="634" topLine="0" />
 	</File>
 	<File name="Feu.c" open="0" top="0" tabpos="2">
 		<Cursor position="0" topLine="0" />
@@ -20,21 +20,21 @@
 		<Cursor position="198" topLine="0" />
 	</File>
 	<File name="Segment.c" open="1" top="0" tabpos="8">
-		<Cursor position="38" topLine="0" />
+		<Cursor position="298" topLine="0" />
 	</File>
 	<File name="Segment.h" open="1" top="0" tabpos="2">
-		<Cursor position="446" topLine="6" />
+		<Cursor position="918" topLine="12" />
 	</File>
-	<File name="Structures.h" open="0" top="0" tabpos="3">
+	<File name="Structures.h" open="1" top="0" tabpos="11">
 		<Cursor position="128" topLine="0" />
 	</File>
-	<File name="Voiture.c" open="1" top="1" tabpos="10">
-		<Cursor position="5247" topLine="41" />
+	<File name="Voiture.c" open="1" top="0" tabpos="10">
+		<Cursor position="1965" topLine="6" />
 	</File>
 	<File name="Voiture.h" open="1" top="0" tabpos="5">
-		<Cursor position="595" topLine="11" />
+		<Cursor position="936" topLine="21" />
 	</File>
-	<File name="main.c" open="1" top="0" tabpos="7">
-		<Cursor position="117" topLine="0" />
+	<File name="main.c" open="1" top="1" tabpos="7">
+		<Cursor position="5305" topLine="155" />
 	</File>
 </CodeBlocks_layout_file>

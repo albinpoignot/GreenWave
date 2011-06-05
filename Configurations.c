@@ -12,61 +12,90 @@
  * \param traces La variable qui contiendra les traces
  * \param chemins La variable qui contiendra les chemins
  */
-void init_config(ListeSegments listeSegments, ListeCarrefours listeCarrefours, Traces traces, int *** chemins, int padding, int espaceRoutes, int largeurRoutes)
+ListeCarrefours * init_listeCarrefours(int padding, int espaceRoutes, int largeurRoutes)
 {
-    // Phase 1 : Initialisation des carrefours
-    Carrefour * carrefour0 = Carrefour_init(0, padding, 0);
-    Carrefour * carrefour1 = Carrefour_init(1, carrefour0->posX + espaceRoutes + largeurRoutes, 0);
-    Carrefour * carrefour2 = Carrefour_init(2, carrefour1->posX + espaceRoutes + largeurRoutes, 0);
+    ListeCarrefours * listeCarrefours = NULL;
 
-    Carrefour * carrefour3 = Carrefour_init(3, 0, padding + espaceRoutes);
-    Carrefour * carrefour4 = Carrefour_init(4, espaceRoutes + largeurRoutes, carrefour3->posY);
-    Carrefour * carrefour5 = Carrefour_init(5, carrefour4->posX + espaceRoutes + largeurRoutes, carrefour3->posY);
-    Carrefour * carrefour6 = Carrefour_init(6, carrefour5->posX + espaceRoutes + largeurRoutes, carrefour3->posY);
-    Carrefour * carrefour7 = Carrefour_init(7, carrefour6->posX + espaceRoutes + largeurRoutes, carrefour3->posY);
+    listeCarrefours = (ListeCarrefours *) malloc(sizeof(ListeCarrefours));
 
-    Carrefour * carrefour8 = Carrefour_init(8, 0, padding + espaceRoutes + carrefour3->posY);
-    Carrefour * carrefour9 = Carrefour_init(9, espaceRoutes + largeurRoutes, carrefour8->posY);
-    Carrefour * carrefour10 = Carrefour_init(10, carrefour9->posX + espaceRoutes + largeurRoutes, carrefour8->posY);
-    Carrefour * carrefour11 = Carrefour_init(11, carrefour10->posX + espaceRoutes + largeurRoutes, carrefour8->posY);
-    Carrefour * carrefour12 = Carrefour_init(12, carrefour11->posX + espaceRoutes + largeurRoutes, carrefour8->posY);
+    if(listeCarrefours != NULL)
+    {
+        // Phase 1 : Initialisation des carrefours
+        Carrefour * carrefour0 = Carrefour_init(0, padding, 0);
+        Carrefour * carrefour1 = Carrefour_init(1, carrefour0->posX + espaceRoutes + largeurRoutes, 0);
+        Carrefour * carrefour2 = Carrefour_init(2, carrefour1->posX + espaceRoutes + largeurRoutes, 0);
 
-    Carrefour * carrefour13 = Carrefour_init(13, 0, padding + espaceRoutes + carrefour8->posY);
-    Carrefour * carrefour14 = Carrefour_init(14, espaceRoutes + largeurRoutes, carrefour8->posY);
-    Carrefour * carrefour15 = Carrefour_init(15, carrefour14->posX + espaceRoutes + largeurRoutes, carrefour13->posY);
-    Carrefour * carrefour16 = Carrefour_init(16, carrefour15->posX + espaceRoutes + largeurRoutes, carrefour13->posY);
-    Carrefour * carrefour17 = Carrefour_init(17, carrefour16->posX + espaceRoutes + largeurRoutes, carrefour13->posY);
+        Carrefour * carrefour3 = Carrefour_init(3, 0, padding + espaceRoutes);
+        Carrefour * carrefour4 = Carrefour_init(4, espaceRoutes + largeurRoutes, carrefour3->posY);
+        Carrefour * carrefour5 = Carrefour_init(5, carrefour4->posX + espaceRoutes + largeurRoutes, carrefour3->posY);
+        Carrefour * carrefour6 = Carrefour_init(6, carrefour5->posX + espaceRoutes + largeurRoutes, carrefour3->posY);
+        Carrefour * carrefour7 = Carrefour_init(7, carrefour6->posX + espaceRoutes + largeurRoutes, carrefour3->posY);
 
-    Carrefour * carrefour18 = Carrefour_init(18, padding, padding + espaceRoutes + carrefour13->posY);
-    Carrefour * carrefour19 = Carrefour_init(19, carrefour18->posX + espaceRoutes + largeurRoutes, carrefour18->posY);
-    Carrefour * carrefour20 = Carrefour_init(20, carrefour19->posX + espaceRoutes + largeurRoutes, carrefour18->posY);
+        Carrefour * carrefour8 = Carrefour_init(8, 0, padding + espaceRoutes + carrefour3->posY);
+        Carrefour * carrefour9 = Carrefour_init(9, espaceRoutes + largeurRoutes, carrefour8->posY);
+        Carrefour * carrefour10 = Carrefour_init(10, carrefour9->posX + espaceRoutes + largeurRoutes, carrefour8->posY);
+        Carrefour * carrefour11 = Carrefour_init(11, carrefour10->posX + espaceRoutes + largeurRoutes, carrefour8->posY);
+        Carrefour * carrefour12 = Carrefour_init(12, carrefour11->posX + espaceRoutes + largeurRoutes, carrefour8->posY);
 
-    listeCarrefours[0] = carrefour0;
-    listeCarrefours[1] = carrefour1;
-    listeCarrefours[2] = carrefour2;
-    listeCarrefours[3] = carrefour3;
-    listeCarrefours[4] = carrefour4;
-    listeCarrefours[5] = carrefour5;
-    listeCarrefours[6] = carrefour6;
-    listeCarrefours[7] = carrefour7;
-    listeCarrefours[8] = carrefour8;
-    listeCarrefours[9] = carrefour9;
-    listeCarrefours[10] = carrefour10;
-    listeCarrefours[11] = carrefour11;
-    listeCarrefours[12] = carrefour12;
-    listeCarrefours[13] = carrefour13;
-    listeCarrefours[14] = carrefour14;
-    listeCarrefours[15] = carrefour15;
-    listeCarrefours[16] = carrefour16;
-    listeCarrefours[17] = carrefour17;
-    listeCarrefours[18] = carrefour18;
-    listeCarrefours[19] = carrefour19;
-    listeCarrefours[20] = carrefour20;
+        Carrefour * carrefour13 = Carrefour_init(13, 0, padding + espaceRoutes + carrefour8->posY);
+        Carrefour * carrefour14 = Carrefour_init(14, espaceRoutes + largeurRoutes, carrefour8->posY);
+        Carrefour * carrefour15 = Carrefour_init(15, carrefour14->posX + espaceRoutes + largeurRoutes, carrefour13->posY);
+        Carrefour * carrefour16 = Carrefour_init(16, carrefour15->posX + espaceRoutes + largeurRoutes, carrefour13->posY);
+        Carrefour * carrefour17 = Carrefour_init(17, carrefour16->posX + espaceRoutes + largeurRoutes, carrefour13->posY);
 
-printf("here%d\n", 2);
+        Carrefour * carrefour18 = Carrefour_init(18, padding, padding + espaceRoutes + carrefour13->posY);
+        Carrefour * carrefour19 = Carrefour_init(19, carrefour18->posX + espaceRoutes + largeurRoutes, carrefour18->posY);
+        Carrefour * carrefour20 = Carrefour_init(20, carrefour19->posX + espaceRoutes + largeurRoutes, carrefour18->posY);
+
+        *listeCarrefours[0] = carrefour0;
+        *listeCarrefours[1] = carrefour1;
+        *listeCarrefours[2] = carrefour2;
+        *listeCarrefours[3] = carrefour3;
+        *listeCarrefours[4] = carrefour4;
+        *listeCarrefours[5] = carrefour5;
+        *listeCarrefours[6] = carrefour6;
+        *listeCarrefours[7] = carrefour7;
+        *listeCarrefours[8] = carrefour8;
+        *listeCarrefours[9] = carrefour9;
+        *listeCarrefours[10] = carrefour10;
+        *listeCarrefours[11] = carrefour11;
+        *listeCarrefours[12] = carrefour12;
+        *listeCarrefours[13] = carrefour13;
+        *listeCarrefours[14] = carrefour14;
+        *listeCarrefours[15] = carrefour15;
+        *listeCarrefours[16] = carrefour16;
+        *listeCarrefours[17] = carrefour17;
+        *listeCarrefours[18] = carrefour18;
+        *listeCarrefours[19] = carrefour19;
+        *listeCarrefours[20] = carrefour20;
+    printf("init_listeCarrefours finished\n");
+        return listeCarrefours;
+    }
+    else
+    {
+        printf("init_carrefours : Erreur lors de l'allocation de listeCarrefours");
+        exit(EXIT_FAILURE);
+    }
+}
+
+
+ListeSegments * init_listeSegments(ListeCarrefours * listeCarrefours)
+{
+    ListeSegments * listeSegments = NULL;
+    listeSegments = (ListeSegments *) malloc(sizeof(ListeSegments));
+    int i,j;
+    for(i=0;i<=20;i++)
+    {
+        listeSegments[i] = (Segment **) malloc(21 * sizeof(Segment *));
+
+        for(j=0;j<=20;j++)
+        {
+            listeSegments[i][j] = (Segment *) malloc(sizeof(Segment));
+        }
+    }
     // Phase 2 : Initialisation des segments
     // Segments verticaux
-    listeSegments[0][4] = Segment_init(carrefour0,carrefour4);
+    /*listeSegments[0][4] = Segment_init(carrefour0,carrefour4);
     listeSegments[4][0] = Segment_init(carrefour4,carrefour0);
     listeSegments[4][9] = Segment_init(carrefour4,carrefour9);
     listeSegments[9][4] = Segment_init(carrefour9,carrefour4);
@@ -119,8 +148,69 @@ printf("here%d\n", 2);
     listeSegments[15][16] = Segment_init(carrefour15,carrefour16);
     listeSegments[16][15] = Segment_init(carrefour16,carrefour15);
     listeSegments[16][17] = Segment_init(carrefour16,carrefour17);
-    listeSegments[17][16] = Segment_init(carrefour17,carrefour16);
-printf("here%d\n", 3);
+    listeSegments[17][16] = Segment_init(carrefour17,carrefour16);*/
+
+    listeSegments[0][4] = Segment_init(*listeCarrefours[0],*listeCarrefours[4]);
+    listeSegments[4][0] = Segment_init(*listeCarrefours[4],*listeCarrefours[0]);
+    listeSegments[4][9] = Segment_init(*listeCarrefours[4],*listeCarrefours[9]);
+    listeSegments[9][4] = Segment_init(*listeCarrefours[9],*listeCarrefours[4]);
+    listeSegments[9][14] = Segment_init(*listeCarrefours[9],*listeCarrefours[14]);
+    listeSegments[14][9] = Segment_init(*listeCarrefours[14],*listeCarrefours[9]);
+    listeSegments[14][18] = Segment_init(*listeCarrefours[14],*listeCarrefours[18]);
+    listeSegments[18][14] = Segment_init(*listeCarrefours[18],*listeCarrefours[14]);
+
+    listeSegments[1][5] = Segment_init(*listeCarrefours[1],*listeCarrefours[5]);
+    listeSegments[5][1] = Segment_init(*listeCarrefours[5],*listeCarrefours[1]);
+    listeSegments[5][10] = Segment_init(*listeCarrefours[5],*listeCarrefours[10]);
+    listeSegments[10][5] = Segment_init(*listeCarrefours[10],*listeCarrefours[5]);
+    listeSegments[10][15] = Segment_init(*listeCarrefours[10],*listeCarrefours[15]);
+    listeSegments[15][10] = Segment_init(*listeCarrefours[15],*listeCarrefours[10]);
+    listeSegments[15][19] = Segment_init(*listeCarrefours[15],*listeCarrefours[19]);
+    listeSegments[19][15] = Segment_init(*listeCarrefours[19],*listeCarrefours[15]);
+
+    listeSegments[2][6] = Segment_init(*listeCarrefours[12],*listeCarrefours[6]);
+    listeSegments[6][2] = Segment_init(*listeCarrefours[6],*listeCarrefours[2]);
+    listeSegments[6][11] = Segment_init(*listeCarrefours[6],*listeCarrefours[11]);
+    listeSegments[11][6] = Segment_init(*listeCarrefours[11],*listeCarrefours[6]);
+    listeSegments[11][16] = Segment_init(*listeCarrefours[11],*listeCarrefours[16]);
+    listeSegments[16][11] = Segment_init(*listeCarrefours[16],*listeCarrefours[11]);
+    listeSegments[16][20] = Segment_init(*listeCarrefours[16],*listeCarrefours[20]);
+    listeSegments[20][16] = Segment_init(*listeCarrefours[20],*listeCarrefours[16]);
+
+    // Segments horizontaux
+    listeSegments[3][4] = Segment_init(*listeCarrefours[3],*listeCarrefours[4]);
+    listeSegments[4][3] = Segment_init(*listeCarrefours[4],*listeCarrefours[3]);
+    listeSegments[4][5] = Segment_init(*listeCarrefours[4],*listeCarrefours[5]);
+    listeSegments[5][4] = Segment_init(*listeCarrefours[5],*listeCarrefours[4]);
+    listeSegments[5][6] = Segment_init(*listeCarrefours[5],*listeCarrefours[6]);
+    listeSegments[6][5] = Segment_init(*listeCarrefours[6],*listeCarrefours[5]);
+    listeSegments[6][7] = Segment_init(*listeCarrefours[6],*listeCarrefours[7]);
+    listeSegments[7][6] = Segment_init(*listeCarrefours[7],*listeCarrefours[6]);
+
+    listeSegments[8][9] = Segment_init(*listeCarrefours[8],*listeCarrefours[9]);
+    listeSegments[9][8] = Segment_init(*listeCarrefours[9],*listeCarrefours[8]);
+    listeSegments[9][10] = Segment_init(*listeCarrefours[9],*listeCarrefours[10]);
+    listeSegments[10][9] = Segment_init(*listeCarrefours[10],*listeCarrefours[9]);
+    listeSegments[10][11] = Segment_init(*listeCarrefours[10],*listeCarrefours[11]);
+    listeSegments[11][10] = Segment_init(*listeCarrefours[11],*listeCarrefours[10]);
+    listeSegments[11][12] = Segment_init(*listeCarrefours[11],*listeCarrefours[12]);
+    listeSegments[12][11] = Segment_init(*listeCarrefours[12],*listeCarrefours[11]);
+
+    listeSegments[13][14] = Segment_init(*listeCarrefours[13],*listeCarrefours[14]);
+    listeSegments[14][13] = Segment_init(*listeCarrefours[14],*listeCarrefours[13]);
+    listeSegments[14][15] = Segment_init(*listeCarrefours[14],*listeCarrefours[15]);
+    listeSegments[15][14] = Segment_init(*listeCarrefours[15],*listeCarrefours[14]);
+    listeSegments[15][16] = Segment_init(*listeCarrefours[15],*listeCarrefours[16]);
+    listeSegments[16][15] = Segment_init(*listeCarrefours[16],*listeCarrefours[15]);
+    listeSegments[16][17] = Segment_init(*listeCarrefours[16],*listeCarrefours[17]);
+    listeSegments[17][16] = Segment_init(*listeCarrefours[17],*listeCarrefours[16]);
+printf("init_listeSegments finished\n");
+    return listeSegments;
+}
+
+
+Traces * init_traces()
+{
     // Phase 3 : Initialisation des traces possibles
     int tracesL[62][5] = {
         {4},
@@ -192,24 +282,32 @@ printf("here%d\n", 3);
         {16},
         {16,15}
     };
-printf("here%d\n", 4);
-    //traces = tracesL;
+
+    Traces * traces;
+    traces = (Traces *) malloc(sizeof(Traces));
 
     if(traces != NULL)
     {
-        int k,l;
-        for(k=0;k<=61;k++)
+        int i,j;
+        for(i=0;i<=61;i++)
         {
-            for(l=0;l<=4;l++)
+            traces[i] = (int **) malloc(sizeof(int *));
+
+            for(j=0;j<=4;j++)
             {
-                printf("\t\t tracesL[%d][%d] = %d\n",k,l,tracesL[k][l]);
-                traces[k][l] = tracesL[k][l];
-                printf("\t\t traces[%d][%d] = %d\n",k,l,traces[k][l]);
+                traces[i][j] = (int *) malloc(sizeof(int));
+                *traces[i][j] = tracesL[i][j];
             }
         }
     }
+printf("init_traces finished\n");
+    return traces;
+}
 
-printf("here%d\n", 5);
+int *** init_chemins()
+{
+    int *** chemins;
+
     // Phase 4 : Initialisation des chemins possibles
     chemins = (int ***)malloc(20 * sizeof(int **));
     int i, j;
@@ -371,8 +469,6 @@ printf("here%d\n", 5);
     chemins[18][20][0] = chemins[13][20][0];
 
     chemins[19][20][0] = chemins[17][19][0];
-printf("here%d\n", 6);
-
+printf("init_chemins finished\n");
+    return chemins;
 }
-
-

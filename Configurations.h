@@ -12,6 +12,11 @@ int vitesseMax;*/
 
 void init_config(ListeSegments listeSegments, ListeCarrefours listeCarrefours, Traces traces, int *** chemins, int padding, int espaceRoutes, int largeurRoutes);
 
+ListeCarrefours * init_listeCarrefours(int padding, int espaceRoutes, int largeurRoutes);
+ListeSegments * init_listeSegments(ListeCarrefours * listeCarrefours);
+Traces * init_traces();
+int *** init_chemins();
+
 /*int *** chemins;
 int traces[62][5];*/
 
