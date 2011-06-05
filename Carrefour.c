@@ -12,7 +12,7 @@ Carrefour * Carrefour_init(int id, int posX, int posY)
 
     if(carr == NULL)
     {
-        printf("Erreur lors de l'initialisation d'un carrefour (id:%d", id);
+        printf("Erreur lors de l'initialisation d'un carrefour (id:%d)", id);
         exit(0);
     }
 
@@ -46,35 +46,35 @@ void carrefour_ordoAlea(ListeCarrefours tableauCarrefours)
 {
     int j;
 
-        for (j=0; j<4; j++)
-        {
-            feu_initCouleurFeuAlea(tableauCarrefours[4].tabFeux[j]);
-            carrefour_detecterErreur(tableauCarrefours[4]);
+    /*for (j=0; j<4; j++)
+    {
+        feu_initCouleurFeuAlea(tableauCarrefours[4].tabFeux[j]);
+        carrefour_detecterErreur(tableauCarrefours[4]);
 
-            feu_initCouleurFeuAlea(tableauCarrefours[5].tabFeux[j]);
-            carrefour_detecterErreur(tableauCarrefours[5]);
+        feu_initCouleurFeuAlea(tableauCarrefours[5].tabFeux[j]);
+        carrefour_detecterErreur(tableauCarrefours[5]);
 
-            feu_initCouleurFeuAlea(tableauCarrefours[6].tabFeux[j]);
-            carrefour_detecterErreur(tableauCarrefours[6]);
+        feu_initCouleurFeuAlea(tableauCarrefours[6].tabFeux[j]);
+        carrefour_detecterErreur(tableauCarrefours[6]);
 
-            feu_initCouleurFeuAlea(tableauCarrefours[9].tabFeux[j]);
-            carrefour_detecterErreur(tableauCarrefours[9]);
+        feu_initCouleurFeuAlea(tableauCarrefours[9].tabFeux[j]);
+        carrefour_detecterErreur(tableauCarrefours[9]);
 
-            feu_initCouleurFeuAlea(tableauCarrefours[10].tabFeux[j]);
-            carrefour_detecterErreur(tableauCarrefours[10]);
+        feu_initCouleurFeuAlea(tableauCarrefours[10].tabFeux[j]);
+        carrefour_detecterErreur(tableauCarrefours[10]);
 
-            feu_initCouleurFeuAlea(tableauCarrefours[11].tabFeux[j]);
-            carrefour_detecterErreur(tableauCarrefours[11]);
+        feu_initCouleurFeuAlea(tableauCarrefours[11].tabFeux[j]);
+        carrefour_detecterErreur(tableauCarrefours[11]);
 
-            feu_initCouleurFeuAlea(tableauCarrefours[14].tabFeux[j]);
-            carrefour_detecterErreur(tableauCarrefours[14]);
+        feu_initCouleurFeuAlea(tableauCarrefours[14].tabFeux[j]);
+        carrefour_detecterErreur(tableauCarrefours[14]);
 
-            feu_initCouleurFeuAlea(tableauCarrefours[15].tabFeux[j]);
-            carrefour_detecterErreur(tableauCarrefours[15]);
+        feu_initCouleurFeuAlea(tableauCarrefours[15].tabFeux[j]);
+        carrefour_detecterErreur(tableauCarrefours[15]);
 
-            feu_initCouleurFeuAlea(tableauCarrefours[16].tabFeux[j]);
-            carrefour_detecterErreur(tableauCarrefours[16]);
-        }
+        feu_initCouleurFeuAlea(tableauCarrefours[16].tabFeux[j]);
+        carrefour_detecterErreur(tableauCarrefours[16]);
+    }*/
 }
 /*
 

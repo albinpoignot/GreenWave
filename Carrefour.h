@@ -15,7 +15,7 @@ typedef struct {
 } Carrefour;
 
 
-typedef Carrefour ListeCarrefours[MAX_CARREFOUR];
+typedef Carrefour * ListeCarrefours[MAX_CARREFOUR];
 
 // Carrefour * ListeCarrefours[21];
 

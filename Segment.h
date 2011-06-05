@@ -2,6 +2,8 @@
 #define SEGMENT_H
 
 #include "Carrefour.h"
+
+#define MAX_CARREFOUR 21
 //#include "Voiture.h" <- Est inclut plus loin dans le fichier pour permettre de faire certains typedef avant
 
 /**
@@ -17,7 +19,7 @@ struct Segment {
 };
 
 typedef int Traces[62][5];
-typedef Segment ListeSegments[MAX_CARREFOUR][MAX_CARREFOUR][1];
+typedef Segment * ListeSegments[MAX_CARREFOUR][MAX_CARREFOUR];
 //typedef int ListeSegments;
 
 
@@ -32,7 +34,6 @@ struct File {
     struct Voiture * voiture;
     struct Voiture * voitureApres;
 };
-
 
 //Segment * listeSegments[MAX_CARREFOUR][MAX_CARREFOUR];
 Segment * Segment_init(Carrefour * carrefour1, Carrefour * carrefour4);

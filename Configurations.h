@@ -10,7 +10,7 @@ int espaceRoutes = 95; // espaceRoutes = (longueurRoutes - 3*largeurRoutes) / 4
 int padding = 40;
 int vitesseMax;*/
 
-void init_config(ListeSegments listeSegments, Traces traces, int *** chemins);
+void init_config(ListeSegments listeSegments, ListeCarrefours listeCarrefours, Traces traces, int *** chemins, int padding, int espaceRoutes, int largeurRoutes);
 
 /*int *** chemins;
 int traces[62][5];*/

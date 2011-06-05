@@ -29,23 +29,94 @@ int main(int argc, char *argv[])
     SDL_Event event;
     int continuer = 1;
 
+    int i;
+
     ListeCarrefours listeCarrefours;
     ListeSegments listeSegments;
     int *** chemins = NULL;
-    Traces traces;
+    Traces * traces;
+    Voiture ** voitureEnDeplacement;
+    Voiture ** voitureArret;
     // ------------------------------------------
 
     ecran = lancerEcran();
-
+    traces = (Traces *) malloc(62 * 5 * sizeof(int));
     /**************************************************
      * Phase 2 : Initialisation des variables locales *
      **************************************************/
-     init_config(listeSegments, traces, chemins);
+    init_config(listeSegments, listeCarrefours, *traces, chemins, PADDING, ESPACE_ROUTES, LARGEUR_ROUTES);
+
+int r;
+/*for(r=0;r<=60;r++)
+{
+    printf("trace[%d] = %d\n", r, traces[r]);
+    if(traces[r][0] != NULL)
+    {
+        printf("\ttraces[%d][0] = %d\n", r, *traces[r][0]);
+    }
+    if(traces[r][1] != NULL)
+    {
+        printf("\ttraces[%d][1] = %d\n", r, *traces[r][1]);
+    }
+    if(traces[r][2] != NULL)
+    {
+        printf("\ttraces[%d][2] = %d\n", r, *traces[r][2]);
+    }
+    if(traces[r][3] != NULL)
+    {
+        printf("\ttraces[%d][3] = %d\n", r, *traces[r][3]);
+    }
+    if(traces[r][4] != NULL)
+    {
+        printf("\ttraces[%d][4] = %d\n", r, *traces[r][4]);
+    }
+}*/
 
     /**************************************************
      * Phase 3 : Initialisation du dessin du quartier *
      **************************************************/
     dessinerQuartier(ecran);
+
+
+
+    Voiture * voit1 = Voiture_create(ecran);
+    voit1->position.x = listeSegments[2][6]->carrefourEntree->posX;
+    voit1->position.y = listeSegments[2][6]->carrefourEntree->posY;
+    voit1->traceChoisi = traces[41];
+
+    //voit1->fileActuelle =
+
+
+    SDL_BlitSurface(voit1->dessin, NULL, ecran, &voit1->position);
+    SDL_Flip(ecran);
+
+
+
+    voitureArret = NULL;
+    voitureArret = malloc(sizeof(Voiture *));
+
+    if(voitureArret == NULL)
+    {
+        printf("MAIN : Ré-allocation du tableau voitureArret impossible");
+        exit(EXIT_FAILURE);
+    }
+    else
+    {
+        voitureArret[0] = voit1;
+    }
+
+    Voiture_tabDeplacer(voitureEnDeplacement, voitureArret, voit1);
+
+
+    for(i=0; i<=50; i++)
+    {
+        Voiture_deplacer(voit1, listeSegments, listeCarrefours, voitureEnDeplacement, voitureArret);
+        printf("----------\n");
+        printf("voit - posX : %d / posY : %d\n", voit1->posX, voit1->posY);
+        printf("----------\n");
+
+        SDL_Flip(ecran);
+    }
 
     /************************************
      * Phase 4 : Lancement du programme *

@@ -12,9 +12,9 @@
  * \param traces La variable qui contiendra les traces
  * \param chemins La variable qui contiendra les chemins
  */
-void init_config(ListeSegments listeSeg, Traces traces, int *** chemins)
+void init_config(ListeSegments listeSegments, ListeCarrefours listeCarrefours, Traces traces, int *** chemins, int padding, int espaceRoutes, int largeurRoutes)
 {
-    /*// Phase 1 : Initialisation des carrefours
+    // Phase 1 : Initialisation des carrefours
     Carrefour * carrefour0 = Carrefour_init(0, padding, 0);
     Carrefour * carrefour1 = Carrefour_init(1, carrefour0->posX + espaceRoutes + largeurRoutes, 0);
     Carrefour * carrefour2 = Carrefour_init(2, carrefour1->posX + espaceRoutes + largeurRoutes, 0);
@@ -40,6 +40,29 @@ void init_config(ListeSegments listeSeg, Traces traces, int *** chemins)
     Carrefour * carrefour18 = Carrefour_init(18, padding, padding + espaceRoutes + carrefour13->posY);
     Carrefour * carrefour19 = Carrefour_init(19, carrefour18->posX + espaceRoutes + largeurRoutes, carrefour18->posY);
     Carrefour * carrefour20 = Carrefour_init(20, carrefour19->posX + espaceRoutes + largeurRoutes, carrefour18->posY);
+
+    listeCarrefours[0] = carrefour0;
+    listeCarrefours[1] = carrefour1;
+    listeCarrefours[2] = carrefour2;
+    listeCarrefours[3] = carrefour3;
+    listeCarrefours[4] = carrefour4;
+    listeCarrefours[5] = carrefour5;
+    listeCarrefours[6] = carrefour6;
+    listeCarrefours[7] = carrefour7;
+    listeCarrefours[8] = carrefour8;
+    listeCarrefours[9] = carrefour9;
+    listeCarrefours[10] = carrefour10;
+    listeCarrefours[11] = carrefour11;
+    listeCarrefours[12] = carrefour12;
+    listeCarrefours[13] = carrefour13;
+    listeCarrefours[14] = carrefour14;
+    listeCarrefours[15] = carrefour15;
+    listeCarrefours[16] = carrefour16;
+    listeCarrefours[17] = carrefour17;
+    listeCarrefours[18] = carrefour18;
+    listeCarrefours[19] = carrefour19;
+    listeCarrefours[20] = carrefour20;
+
 printf("here%d\n", 2);
     // Phase 2 : Initialisation des segments
     // Segments verticaux
@@ -170,7 +193,22 @@ printf("here%d\n", 3);
         {16,15}
     };
 printf("here%d\n", 4);
-    traces = tracesL;
+    //traces = tracesL;
+
+    if(traces != NULL)
+    {
+        int k,l;
+        for(k=0;k<=61;k++)
+        {
+            for(l=0;l<=4;l++)
+            {
+                printf("\t\t tracesL[%d][%d] = %d\n",k,l,tracesL[k][l]);
+                traces[k][l] = tracesL[k][l];
+                printf("\t\t traces[%d][%d] = %d\n",k,l,traces[k][l]);
+            }
+        }
+    }
+
 printf("here%d\n", 5);
     // Phase 4 : Initialisation des chemins possibles
     chemins = (int ***)malloc(20 * sizeof(int **));
@@ -333,7 +371,7 @@ printf("here%d\n", 5);
     chemins[18][20][0] = chemins[13][20][0];
 
     chemins[19][20][0] = chemins[17][19][0];
-printf("here%d\n", 6);*/
+printf("here%d\n", 6);
 
 }
 
