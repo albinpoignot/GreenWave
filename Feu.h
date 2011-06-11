@@ -1,31 +1,34 @@
 #ifndef FEU_H
 #define FEU_H
 
+/**
+ * \struct Feu
+ * \brief Structure représentant un feu bicolore
+ */
 typedef struct {
-    int isVert; //feu vert = 1; feu rouge = 0
-    int tempo;
-    int posX;
-    int posY;
+    int isVert; /*!< Couleur du feu : si feu vert = 1; si feu rouge = 0 */
+    int tempo; /*!< Durée entre deux changements (représente en réalité le nombre de boucles que SDL doit effectuer avant de changer la couleur) */
+    int tempoCourant; /*!< Nombre de boucles effectuées par la SDL depuis le dernier changement de couleur */
+    int posX; /*!< Position sur l'axe X */
+    int posY; /*!< Position sur l'axe Y */
 } Feu;
 
 
 // Initialisation et destruction
-Feu * feu_create(void);
-void feu_destroy(Feu feu);
+Feu * Feu_create(void);
+void Feu_destroy(Feu * feu);
 
 
 // Initialisation de la couleur d'un feu
-    // Ordonnancement aléatoire
-void feu_initCouleurFeuAlea(Feu feu);
+// Ordonnancement aléatoire
+void Feu_initCouleurFeuAlea(Feu feu);
 
-    // Ordonnancement Vague Verte
-void feu_initCouleurRougeVagueVerte(Feu feu);
+// Ordonnancement Vague Verte
+void Feu_initCouleurRougeVagueVerte(Feu feu);
 
 // Changement de couleur d'un feu
-void feu_changerCouleurFeu(Feu feu);
-void feu_changerCouleurFinTempo(Feu feu);
+void Feu_changerCouleurFeu(Feu feu);
+void Feu_changerCouleurFinTempo(Feu feu);
 
-// Temporisation
-void feu_temporisation (Feu feu); //Trouver paramètres ou si suppressions
 
 #endif // FEU_H

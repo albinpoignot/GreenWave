@@ -1,5 +1,16 @@
+/**
+ * \file main.c
+ * \brief Simulation de trafic à petite échelle
+ * \author Albin POIGNOT, Mélanie MAUGEAIS
+ * \version 0.1
+ *
+ * Simule la circulation de véhicule dans un quartier simple avec des feux rouges. Vise à étudier
+ * l'impact d'une vague verte sur le trafic et la consommation de carburant
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include <SDL/SDL.h>
 
 #include "Configurations.h"
@@ -10,7 +21,7 @@
 #define PADDING 40
 
 SDL_Surface * lancerEcran();
-void dessinerQuartier(SDL_Surface * ecran);
+void dessinerQuartier(SDL_Surface * ecran, SDL_Surface * routesH, SDL_Surface * routesV);
 
 int main(int argc, char *argv[])
 {
@@ -18,7 +29,7 @@ int main(int argc, char *argv[])
      * Phase 1 : Initialisation du programme *
      *****************************************/
     // Démarrage de la SDL et handle des erreurs
-    if (SDL_Init(SDL_INIT_VIDEO) == -1)
+    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) == -1)
     {
         fprintf(stderr, "Erreur d'initialisation de la SDL : %s\n", SDL_GetError()); // Ecriture de l'erreur
         exit(EXIT_FAILURE); // On quitte le programme
@@ -29,80 +40,64 @@ int main(int argc, char *argv[])
     SDL_Event event;
     int continuer = 1;
 
-    int i;
+    ListeCarrefours listeCarrefours;
+    ListeSegments listeSegments;
+    Chemins chemins;
+    Traces traces;
+    Voiture ** voituresEnDeplacement;
+    Voiture ** voituresArret;
+    int * nbVoituresDeplacement;
+    int * nbVoituresArret;
 
-    ListeCarrefours * listeCarrefours;
-    ListeSegments * listeSegments;
-    int *** chemins = NULL;
-    Traces * traces;
-    Voiture ** voitureEnDeplacement;
-    Voiture ** voitureArret;
+    SDL_Surface * routeH = SDL_CreateRGBSurface(SDL_HWSURFACE, LONGUEUR_ROUTES, LARGEUR_ROUTES, 32, 0, 0, 0, 0);
+    SDL_Surface * routeV = SDL_CreateRGBSurface(SDL_HWSURFACE, LARGEUR_ROUTES, LONGUEUR_ROUTES, 32, 0, 0, 0, 0);
     // ------------------------------------------
 
     ecran = lancerEcran();
 
     /**************************************************
-     * Phase 3 : Initialisation du dessin du quartier *
-     **************************************************/
-    dessinerQuartier(ecran);
-
-
-    //traces = (Traces *) malloc(62 * 5 * sizeof(int));
-    /**************************************************
      * Phase 2 : Initialisation des variables locales *
      **************************************************/
-    printf("%d\n\n", sizeof(ListeCarrefours));
     //init_config(listeSegments, listeCarrefours, *traces, chemins, PADDING, ESPACE_ROUTES, LARGEUR_ROUTES);
-    listeCarrefours = init_listeCarrefours(PADDING, ESPACE_ROUTES, LARGEUR_ROUTES);
-    printf("finished\n");
-    //listeSegments = init_listeSegments(listeCarrefours);
-    //traces = init_traces();
-    //chemins = init_chemins();
+    init_listeCarrefours(listeCarrefours, PADDING, ESPACE_ROUTES, LARGEUR_ROUTES);
+    init_listeSegments(listeSegments, listeCarrefours);
+    init_traces(traces);
+    init_chemins(chemins);
 
+    srand(time(NULL)); // initialisation de rand()
 
+    /**************************************************
+     * Phase 3 : Initialisation du dessin du quartier *
+     **************************************************/
+    dessinerQuartier(ecran, routeH, routeV);
 
-    /*Voiture * voit1 = Voiture_create(ecran);
-    Segment * seg = listeSegments[2][6];
-    //voit1->position->x = listeSegments[2][6]->carrefourEntree->posX;
-    voit1->position.x = seg->carrefourEntree->posX;
-    voit1->position.y = seg->carrefourEntree->posY;
-    voit1->traceChoisi = traces[41];*/
+    /***********************************************
+     * Phase TEST : Lancement manuel d'une voiture *
+     ***********************************************/
 
-    //voit1->fileActuelle =
+    Voiture * voit1 = Voiture_create(ecran, 8, 12, listeCarrefours, chemins, traces);
 
+    nbVoituresDeplacement = (int *)malloc(sizeof(int));
+    nbVoituresArret = (int *)malloc(sizeof(int));
 
-    /*SDL_BlitSurface(voit1->dessin, NULL, ecran, &voit1->position);
-    SDL_Flip(ecran);*/
+    *nbVoituresArret = 0;
+    *nbVoituresDeplacement = 0;
 
+    SDL_BlitSurface(voit1->dessin, NULL, ecran, &voit1->position);
+    SDL_Flip(ecran);
 
+    voituresArret = NULL;
 
-   /*voitureArret = NULL;
-    voitureArret = malloc(sizeof(Voiture *));
+    voituresArret = (Voiture **) malloc(sizeof(Voiture *));
 
-    if(voitureArret == NULL)
-    {
-        printf("MAIN : Ré-allocation du tableau voitureArret impossible");
-        exit(EXIT_FAILURE);
-    }
-    else
-    {
-        voitureArret[0] = voit1;
-    }
+    voituresEnDeplacement = NULL;
 
-    Voiture_tabDeplacer(voitureEnDeplacement, voitureArret, voit1);
+    voituresEnDeplacement = (Voiture **) malloc(sizeof(Voiture *));
+    *voituresEnDeplacement = NULL;
 
+    voituresArret[0] = voit1;
 
-    for(i=0; i<=50; i++)
-    {
-        Voiture_deplacer(voit1, *listeSegments, *listeCarrefours, voitureEnDeplacement, voitureArret);
-        printf("----------\n");
-        printf("voit - posX : %d / posY : %d\n", voit1->posX, voit1->posY);
-        printf("----------\n");
-
-        SDL_Flip(ecran);
-    }*/
-
-    //SDL_Flip(ecran);
+    Voiture_tabDeplacer(voituresEnDeplacement, voituresArret, voit1, nbVoituresDeplacement, nbVoituresArret);
 
     /************************************
      * Phase 4 : Lancement du programme *
@@ -137,6 +132,19 @@ int main(int argc, char *argv[])
 
         }
 
+        if(voituresEnDeplacement != NULL)
+        {
+            // Prévoir une boucle sur tous les éléments de voituresEnDeplacement
+            if(voituresEnDeplacement[0] == voit1)
+            {
+                Voiture_deplacer(voit1, listeSegments, listeCarrefours, voituresEnDeplacement, voituresArret, nbVoituresDeplacement, nbVoituresArret);
+            }
+        }
+
+        dessinerQuartier(ecran, routeH, routeV);
+        SDL_BlitSurface(voit1->dessin, NULL, ecran, &voit1->position);
+        SDL_Flip(ecran);
+
     }
 
 
@@ -144,8 +152,18 @@ int main(int argc, char *argv[])
      * Phase 5 : Libération de la mémoire *
      **************************************/
     // Free des surfaces
-//    SDL_FreeSurface(routesH);
-//   SDL_FreeSurface(routesV);
+    SDL_FreeSurface(routeH);
+    SDL_FreeSurface(routeV);
+    free(voituresArret);
+    free(voituresEnDeplacement);
+    free(nbVoituresArret);
+    free(nbVoituresDeplacement);
+
+    Voiture_destroy(voit1);
+
+    destroy_listeCarrefours(listeCarrefours);
+    destroy_listeSegments(listeSegments);
+
     SDL_Quit();
 
     return EXIT_SUCCESS;
@@ -166,7 +184,7 @@ SDL_Surface * lancerEcran()
     SDL_EnableKeyRepeat(10, 10);
 
     // Ouverture d'une fenêtre : 800*600, couleurs 32b, on utilise la mém. vidéo
-    ecran = SDL_SetVideoMode(800, 600, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
+    ecran = SDL_SetVideoMode(800, 600, 32, SDL_SWSURFACE | SDL_DOUBLEBUF);
 
     // En cas d'erreur à l'ouverture
     if (ecran == NULL)
@@ -177,7 +195,7 @@ SDL_Surface * lancerEcran()
 
     // Titre de la fenêtre
     SDL_WM_SetCaption("Green Wave", NULL);
-printf("lancer_ecran() fin\n");
+
     return ecran;
 }
 
@@ -187,11 +205,9 @@ printf("lancer_ecran() fin\n");
  *
  * \param ecran L'écran sur lequel dessiner le quartier
  */
-void dessinerQuartier(SDL_Surface * ecran)
+void dessinerQuartier(SDL_Surface * ecran, SDL_Surface * routesH, SDL_Surface * routesV)
 {
-printf("start to draw the screen\n");
     Uint32 violet, blanc;
-    SDL_Surface *routesH = NULL, *routesV = NULL;
     SDL_Rect position;
     int i;
 
@@ -200,55 +216,47 @@ printf("start to draw the screen\n");
         printf("Il y a un problème à l'initialisation de l'écran");
         exit(EXIT_FAILURE);
     }
-printf("dessin %d\n", 1);
+
     // Paramêtrage couleur de fond
     violet = SDL_MapRGB(ecran->format, 138, 0, 143); // Couleur violette
     SDL_FillRect(ecran, NULL, violet); // Définition de la couleur de fond de l'écran
-printf("dessin %d\n", 2);
+
     // --------------------------------------------
     // Phase 1 : Routes horizontales
     // --------------------------------------------
 
     // Création et initialisation du rectangle des routes verticales
     blanc = SDL_MapRGB(ecran->format, 255, 255, 255);
-    printf("dessin %d - %d\n", 2,1);
-    routesV = SDL_CreateRGBSurface(SDL_HWSURFACE, LARGEUR_ROUTES, LONGUEUR_ROUTES, 32, 0, 0, 0, 0);
-    printf("dessin %d - %d\n", 2,2);
+
     SDL_FillRect(routesV, NULL, blanc);
-printf("dessin %d\n", 3);
+
     // La première route sera à cette position
     position.x = ESPACE_ROUTES + PADDING;
     position.y = PADDING;
-printf("dessin %d\n", 4);
+
     for(i = 0; i <= 2; i++)
     {
         SDL_BlitSurface(routesV, NULL, ecran, &position);
         position.x += ESPACE_ROUTES + LARGEUR_ROUTES;
     }
-printf("dessin %d\n", 5);
+
     // --------------------------------------------
     // Phase 1 : Routes verticales
     // --------------------------------------------
 
     // Création et initialisation du rectangle des routes horizontales
-    routesH = SDL_CreateRGBSurface(SDL_HWSURFACE, LONGUEUR_ROUTES, LARGEUR_ROUTES, 32, 0, 0, 0, 0);
     SDL_FillRect(routesH, NULL, blanc);
-printf("dessin %d\n", 6);
+
     // La première route verticale sera à cette position
     position.x = PADDING;
     position.y = ESPACE_ROUTES + PADDING;
-printf("dessin %d\n", 7);
+
     for(i = 0; i <= 2; i++)
     {
         SDL_BlitSurface(routesH, NULL, ecran, &position);
         position.y += ESPACE_ROUTES + LARGEUR_ROUTES;
     }
-printf("dessin %d\n", 8);
 
-    // Mise à jour de l'affichage
-    SDL_Flip(ecran);
-
-printf("finish to draw the screen\n");
 }
 
 /**

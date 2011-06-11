@@ -4,20 +4,15 @@
 #include "Voiture.h"
 #include "Segment.h"
 
-/*int longueurRoutes = 500;
-int largeurRoutes = 40;
-int espaceRoutes = 95; // espaceRoutes = (longueurRoutes - 3*largeurRoutes) / 4
-int padding = 40;
-int vitesseMax;*/
+void init_config(ListeSegments listeSegments, ListeCarrefours listeCarrefours, Traces traces, int *** chemins,
+                 int padding, int espaceRoutes, int largeurRoutes);
 
-void init_config(ListeSegments listeSegments, ListeCarrefours listeCarrefours, Traces traces, int *** chemins, int padding, int espaceRoutes, int largeurRoutes);
+void init_listeCarrefours(ListeCarrefours listeCarrefours, int padding, int espaceRoutes, int largeurRoutes);
+void init_listeSegments(ListeSegments listeSegments, ListeCarrefours listeCarrefours);
+void init_traces(Traces traces);
+void init_chemins(Chemins chemins);
 
-ListeCarrefours * init_listeCarrefours(int padding, int espaceRoutes, int largeurRoutes);
-ListeSegments * init_listeSegments(ListeCarrefours * listeCarrefours);
-Traces * init_traces();
-int *** init_chemins();
-
-/*int *** chemins;
-int traces[62][5];*/
+void destroy_listeCarrefours(ListeCarrefours listeCarrefours);
+void destroy_listeSegments(ListeSegments listeSegments);
 
 #endif // CONFIGURATIONS_H

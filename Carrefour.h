@@ -7,23 +7,32 @@
 #define MAX_FEU 4
 
 
+/**
+ * \struct Carrefour
+ * \brief Carrefour du quartier
+ *
+ * Carrefour représente un carrefour du quartier. Cette structure
+ * permet de connaître les feux qui lui sont attachés et sa position à l'écran
+ */
+
 typedef struct {
-    int id;
-    int posX;
-    int posY;
-    Feu tabFeux[MAX_FEU];
+    int id; /*!< Identifiant du carrefour */
+    int posX; /*!< Position sur l'axe X */
+    int posY; /*!< Position sur l'axe Y */
+    Feu tabFeux[MAX_FEU]; /*!< Tableau des structures Feu rattachées à ce carrefour */
 } Carrefour;
 
 
+/**
+ * \typedef Carrefour * ListeCarrefours[MAX_CARREFOUR]
+ * Tableau permettant de référencer toutes les structures Carrefours du quartier
+ */
 typedef Carrefour * ListeCarrefours[MAX_CARREFOUR];
 
-// Carrefour * ListeCarrefours[21];
-
-// Prototypes des fonctions de Carrefour.c
 
 // Initialisation et destruction d'un carrefour
 Carrefour * Carrefour_init(int id, int posX, int posY);
-void Carrefour_destroy(Carrefour carrefour);
+void Carrefour_destroy(Carrefour * carrefour);
 
 // Détection et correction des erreurs de synchronisation des feux d'un carrefour
 void Carrefour_detecterErreur(Carrefour carrefour);
